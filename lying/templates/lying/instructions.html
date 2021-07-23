@@ -1,0 +1,51 @@
+{% load otree %}
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+
+    <h3>
+        Instrucciones
+    </h3>
+    <p>
+        En este minijuego, se te asignará el rol de Participante A o Participante B.
+        La computadora escogerá aleatoriamente un número entero entre el 1 y el 6, que valdrá para los participantes A y B.
+        Al Participante A conoce el número escogido para ambos y le enviará un mensaje
+        sobre ese número al Participante B. El Participante B no conoce el número
+        asignado a ambos y debe decidir si cree o no el mensaje del Participante A.
+    </p>
+    <p>
+        Acciones del Participante A:
+    </p>
+    <p>
+        Para cada número posible, el Participante A debe formular un mensaje al Participante B 
+        sobre el número asignado. El mensaje no debe contener necesariamente el verdadero número asignado.
+        Por ejemplo, si el número asignado fue 5, el Participante A puede decir
+        "El número asignado fue 5", como también puede decir "El número asignado fue 2". 
+    </p>
+    <p>
+        Acciones del Participante B:
+    </p>
+    <p>
+        Antes de recibir el mensaje, el Participante B debe decidir si creerá o no en el mensaje que le envíe el Participante A, para cada mensaje posible.
+    </p>
+    <p>
+        Por último, se elegirá el número del juego aleatoriamente y se ejecutarán las acciones de los participantes que corresponden a ese número.
+    </p>
+    <p>
+        Pagos:
+    </p>
+    <p>
+        El Participante A recibe 10 puntos más el doble del valor del número enviado como mensaje. Por ejemplo, si el 
+        Participante A envió el mensaje de que el número asignado fue 1, recibirá 12 puntos (10+2*1). Si envió el mensaje
+        de que el número asignado fue 2, recibirá 14 puntos (10+2*2). Así sucesivamente.
+    </p>
+    <p>
+        Si el Participante B cree en el mensaje del Participante A, el Participante B recibe 10 puntos en caso el mensaje contenga 
+        el veradero número. Si el mensaje no contiene el verdadero número, el Participante B recibe 0 puntos. Si el Participante B decide
+        no creer en el mensaje del Participante A, el Participante B recibe 3 puntos.
+    </p>    
+    <p>
+        En este minijuego, 10 puntos equivalen a S/1 (un sol).
+    </p>
+</div>
+</div>

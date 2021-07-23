@@ -1,0 +1,87 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{% block title %}Acción del Congreso{% endblock %}
+
+{% block content %}
+{% include Constants.mapa_gestion %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Asignación del presidente</h2>
+        {{ if group.habra_segunda == False }}
+            <p>El {{ group.primero }} propone distribuir el presupuesto así:</p>
+        {{ endif }}
+        {{ if group.habra_segunda == True }}
+            <p>El {{ group.primero_2da }} propone distribuir el presupuesto así:</p>
+        {{ endif }}
+        <table style="width:100%">
+            <tr>
+                <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+            </tr>
+            <tr>
+                <td>{{ group.allocation_1 }}</td> <td>{{ group.allocation_2 }}</td> <td>{{ group.allocation_3 }}</td>
+            </tr>
+        </table>
+    </body>
+
+    <p>
+        A continuación, te tocará votar si deseas aceptar o rechazar esa propuesta. Si el Congreso llega a 51 votos favorables, esa propuesta será aceptada e implementada.
+        Si se rechaza, el presidente perderá {{ Constants.castigo }} y se implementará un promedio de las propuestas de los partidos en el Congreso,
+        según cuántos votos tiene cada partido en el Congreso.
+    </p>
+
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Composición del Congreso</h2>
+        <p>Te recordamos la cantidad de votos que tiene cada partido en este Congreso:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido A</th> <th>Partido B</th> <th>Partido C</th>
+            </tr>
+            <tr>
+                <td>{{ group.votos_a_cong }}</td> <td>{{ group.votos_b_cong }}</td> <td>{{ group.votos_c_cong }}</td>
+            </tr>
+        </table>
+    </body>
+
+    <p><font size="+2"><b>SI EL CONGRESO RECHAZA LA PROPUESTA:</b></font></p>
+
+    {% formfields %}
+
+    {% next_button %}
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

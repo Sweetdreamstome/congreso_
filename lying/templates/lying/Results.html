@@ -1,0 +1,186 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Resultados
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        El número que salió asignado para ambos participantes es el {{ zahl }}.
+    </p>
+
+    {% if player.id_in_group == 1 and group.zahl == 1 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_1 }}.
+        </p>
+        {% if group.follow_if_1 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 1 and group.zahl == 2 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_2 }}.
+        </p>
+        {% if group.follow_if_2 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 1 and group.zahl == 3 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_3 }}.
+        </p>
+        {% if group.follow_if_3 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 1 and group.zahl == 4 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_4 }}.
+        </p>
+        {% if group.follow_if_4 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 1 and group.zahl == 5 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_5 }}.
+        </p>
+        {% if group.follow_if_5 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 1 and group.zahl == 6 %}
+        <p>
+            Para este número, el mensaje que escogiste enviarle al Participante B fue {{ message_if_6 }}.
+        </p>
+        {% if group.follow_if_6 == 1 %}
+        <p>
+            El Participante B decidió creer en tu mensaje.
+        </p>
+        {% else %}
+        <p>
+            El Participante B decidió no creer en tu mensaje.
+        </p>
+        {% endif %}
+    {% endif %}
+
+    {% if player.id_in_group == 2 and group.zahl == 1 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_1 }}.
+        </p>
+        {% if group.follow_if_1 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 2 and group.zahl == 2 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_2 }}.
+        </p>
+        {% if group.follow_if_2 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 2 and group.zahl == 3 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_3 }}.
+        </p>
+        {% if group.follow_if_3 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 2 and group.zahl == 4 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_4 }}.
+        </p>
+        {% if group.follow_if_4 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 2 and group.zahl == 5 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_5 }}.
+        </p>
+        {% if group.follow_if_5 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% elif player.id_in_group == 2 and group.zahl == 6 %}
+        <p>
+            Para este número, el mensaje que el Participante A te envió fue {{ message_if_6 }}.
+        </p>
+        {% if group.follow_if_6 == 1 %}
+        <p>
+            Tú decidiste creer en su mensaje.
+        </p>
+        {% else %}
+        <p>
+            Tú decidiste no creer en su mensaje.
+        </p>
+        {% endif %}
+    {% endif %}
+
+
+    <p>
+        Tus puntos en este juego son {{ payoff }}.
+    </p>
+
+    <p>{% next_button %}</p>
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+
+{% endblock %}

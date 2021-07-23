@@ -1,0 +1,22 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Creer o no en los mensajes
+{% endblock %}
+
+{% block content %}
+<p>
+    Eres el Participante B.
+    El Participante A te enviará un mensaje que contendrá un número del 1 al 6. Para cada mensaje posible, debes decidir si creer o no en el mensaje.
+</p>
+
+    {% formfields %}
+    <p>{% next_button %}</p>
+    {% include Constants.instructions_template %}
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+{% endblock %}

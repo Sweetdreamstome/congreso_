@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Fin del juego{% endblock %}
+
+{% block content %}
+
+    <p>
+        Esta fue la ronda final del juego. Tu pago total de este juego (la suma de las {{ Constants.num_rounds }} rondas)
+        es {{ total_payoff }}.
+    </p>
+    <p>
+        Si este juego sale sorteado al final, ese será tu pago.
+        A continuación, te tocará jugar otro juego o pasar a los minijuegos de salida.
+    </p>
+
+    {% next_button %}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Resultados
+{% endblock %}
+
+{% block content %}
+
+    {% if player.id_in_group == 1 %}
+        <p>
+            Escogiste enviarle el Participante B {{ group.sent_amount }} puntos.
+            El Participante B te devolvió {{ group.sent_back_amount }} puntos.
+        </p>
+        <p>
+            Inicialmente, se te dieron {{ Constants.endowment }} puntos,
+            escogiste enviar {{ group.sent_amount }} puntos,
+            y recibiste {{ group.sent_back_amount }} puntos.
+            Entonces, ahora tienes:
+            {{ Constants.endowment }}-{{ group.sent_amount }}+{{ group.sent_back_amount }}=<strong>{{ player.payoff }}</strong>
+        </p>
+    {% else %}
+        <p>
+            El Participante A te envió {{ group.sent_amount }} puntos.
+            Esta cantidad se triplicó por lo que recibiste {{ tripled_amount }} puntos.
+            Escogiste devolver {{ group.sent_back_amount }} puntos.
+        </p>
+        <p>
+            Recibiste {{ tripled_amount }} puntos,
+            escogiste devolver {{ group.sent_back_amount }} puntos.
+            Entonces, ahora tienes:
+            ({{ tripled_amount }})-({{ group.sent_back_amount }})=<strong>{{ player.payoff }}</strong>
+        </p>
+        .
+    {% endif %}
+
+    <p>{% next_button %}</p>
+
+    {% include Constants.instructions_template %}
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+{% endblock %}

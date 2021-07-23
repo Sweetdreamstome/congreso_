@@ -1,0 +1,99 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Pago final
+{% endblock %}
+
+{% block content %}
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Tus puntos en este experimento</h2>
+        <p>
+            Tus puntos en este experimento fueron así:
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Juego</th> <th>Tu rol</th> <th>Tus puntos</th>
+            </tr>
+            <tr>
+                <td>Primero</td> <td>{{ participant.rol_plur_pob1 }}</td> <td>{{ participant.total_payoff_plur_pob1 }}</td>
+            </tr>
+            <tr>
+                <td>Segundo</td> <td>{{ participant.rol_runo_pob1 }}</td> <td>{{ participant.total_payoff_runo_pob1 }}</td>
+            </tr>
+        </table>
+    </body>
+
+    <p>
+        Aleatoriamente, se eligió que se te pagará por el <b>{{ participant.paid_in }}</b>.
+        Por lo tanto, tu pago final convertido en soles es, como dijimos al inicio,
+        un cuarto de eso: <b>{{ participant.pago_final_final }}</b>.
+    </p>
+
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Puntos adicionales por minijuegos</h2>
+        <p>
+            Tus puntos en los minijuegos son los siguientes:
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Minijuego</th> <th>Tus puntos</th>
+            </tr>
+            <tr>
+                <td>Primer minijuego</td>  <td>{{ dictator_pago }}</td>
+            </tr>
+            <tr>
+                <td>Segundo minijuego</td> <td>{{ trust_pago }}</td>
+            </tr>
+            <tr>
+                <td>Tercer minijuego</td>  <td>{{ ultimatum_pago }}</td>
+            </tr>
+            <tr>
+                <td>Cuarto minijuego</td>  <td>{{ lying_pago }}</td>
+            </tr>
+            <tr>
+                <td>Quinto minijuego</td>  <td>{{ measure_pago }}</td>
+            </tr>
+        </table>
+    </body>
+
+    <p>
+        Aleatoriamente, se eligió que se te pagará por el <b>{{ player.paid_in_jueguito }}</b>.
+        Por lo tanto, tu pago adicional por minijuegos convertido en soles es <b>{{ player.pago_final_de_jueguitos }}</b>.
+    </p>
+
+    <p>
+        Por lo tanto, tu pago final por todo el experimento 
+        es {{ player.pago_final_final }}+{{ player.pago_final_de_jueguitos }} = <b>{{ player.pago_final_final_experimento }} soles</b>
+        + 5.00 soles (tu pago por participación).
+    </p>
+
+    {% next_button %}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

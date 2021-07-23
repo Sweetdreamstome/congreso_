@@ -1,0 +1,221 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{% block title %}Resultados{% endblock %}
+
+{% block content %}
+{% include Constants.mapa_gestion %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Asignación del presidente</h2>
+        {{ if group.habra_segunda == False }}
+            <p>El {{ group.primero }} distribuyó el presupuesto así:</p>
+        {{ endif }}
+        {{ if group.habra_segunda == True }}
+            <p>El {{ group.primero_2da }} distribuyó el presupuesto así:</p>
+        {{ endif }}
+        <table style="width:100%">
+            <tr>
+                <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+            </tr>
+            <tr>
+                <td>{{ group.allocation_1 }}</td> <td>{{ group.allocation_2 }}</td> <td>{{ group.allocation_3 }}</td>
+            </tr>
+        </table>
+    </body>
+
+    {{ if player.congresal == True }}
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Decisión del Congreso: {{ group.decision_congreso }}</h2>
+        <p>
+            El Congreso decidió {{ group.decision_congreso }} la propuesta del presidente.
+            Esto se decidió por mayoría simple con los votos de la siguiente manera:
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido</th> <th>Votos</th> <th>Qué votaron</th>
+            </tr>
+            <tr>
+                <th>Partido A</th> <td>{{ group.votos_a_cong }}</td> <td>{{ group.accion_a_cong_str }}</td>
+            </tr>
+            <tr>
+                <th>Partido B</th> <td>{{ group.votos_b_cong }}</td> <td>{{ group.accion_b_cong_str }}</td>
+            </tr>
+            <tr>
+                <th>Partido C</th> <td>{{ group.votos_c_cong }}</td> <td>{{ group.accion_c_cong_str }}</td>
+            </tr>
+        </table>
+    </body>
+
+    {{ if group.decision_congreso == 'Aceptar' }}
+        <head><style>
+            table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            }
+            th, td {
+            padding: 5px;
+            text-align: center;
+            }
+            th {
+            text-align: center;
+            }
+        </style></head><body>
+            <p>Por lo tanto, la asignación final es la que el presidente propuso:</p>
+            <table style="width:100%">
+                <tr>
+                    <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+                </tr>
+                <tr>
+                    <td>{{ group.final_alloc_1 }}</td> <td>{{ group.final_alloc_2 }}</td> <td>{{ group.final_alloc_3 }}</td>
+                </tr>
+            </table>
+        </body>
+    {{ endif }}
+
+    {{ if group.decision_congreso == 'Rechazar' }}
+    <head><style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: center;
+        }
+        th {
+          text-align: center;
+        }
+    </style></head><body>
+        <h2>Contrapropuesta del Congreso</h2>
+        <p>
+            Como contrapropuesta, los congresistas implementaron otra asignación del presupuesto.
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido \ Asignación</th> <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th> <th>Votos</th>
+            </tr>
+            <tr>
+                <th>Partido A</th> <td>{{ group.alloc_a1c }}</td> <td>{{ group.alloc_a2c }}</td> <td>{{ group.alloc_a3c }}</td> <td>{{ group.votos_a_cong }}</td>
+            </tr>
+            <tr>
+                <th>Partido B</th> <td>{{ group.alloc_b1c }}</td> <td>{{ group.alloc_b2c }}</td> <td>{{ group.alloc_b3c }}</td> <td>{{ group.votos_b_cong }}</td>
+            </tr>
+            <tr>
+                <th>Partido C</th> <td>{{ group.alloc_c1c }}</td> <td>{{ group.alloc_c2c }}</td> <td>{{ group.alloc_c3c }}</td> <td>{{ group.votos_c_cong }}</td>
+            </tr>
+            <tr>
+                <th>Congreso (promedio)</th> <th>{{ group.final_alloc_1 }}</th> <th>{{ group.final_alloc_2 }}</th> <th>{{ group.final_alloc_3 }}</th> <th></th>
+            </tr>
+        </table>
+    </body>
+    {{ endif }}
+    {{ endif }}
+
+    <p>
+        Tu pago en esta ronda es la raíz cuadrada de de lo que se te ha asignado (si eres votante) o lo que se le ha asignado
+        al votante de tu mismo tipo (si eres político), más {{ Constants.egorent }} si eres quien salió electo presidente{{ if player.congresal == True }}, 
+        menos {{ Constants.castigo }} si fuiste electo presidente y el Congreso rechazó tu propuesta{{ endif }}.
+    </p>
+
+    {{ if player.role == Constants.voter1_role or player.role == Constants.politiciana_role }}
+        <p>Es decir, te corresponde la raíz cuadrada de {{ group.final_alloc_1 }}.</p>
+    {{ endif }}
+    {{ if player.role == Constants.voter2_role or player.role == Constants.politicianb_role }}
+        <p>Es decir, te corresponde la raíz cuadrada de {{ group.final_alloc_2 }}.</p>
+    {{ endif }}
+    {{ if player.role == Constants.voter3_role or player.role == Constants.politicianc_role }}
+        <p>Es decir, te corresponde la raíz cuadrada de {{ group.final_alloc_3 }}.</p>
+    {{ endif }}
+    {{ if player.ganador == True }}
+        <p>Además, se te suma {{ Constants.egorent }} por haber ganado la presidencia
+        {{ if player.congresal == True }}{{ if group.decision_congreso == 'Rechazar' }}
+            , pero se te quita {{ Constants.castigo }} pues el Congreso rechazó tu propuesta
+        {{ endif }}{{ endif }}.</p>
+    {{ endif }}
+
+    <p>
+        Por lo tanto, tu pago de esta ronda es {{ player.payoff }}.
+    </p>
+
+    <p>
+        Tu pago acumulado en estas {{ player.round_number}} de {{ Constants.num_rounds }} rondas es {{ total_payoff }}.
+        Ahora, presiona Next. Puedes bajar si quieres recordar lo que el presidente había prometido al inicio de la ronda.
+    </p>
+
+    <p>Tu respuesta a continuación no tendrá ninguna consecuencia en tu pago:</p>
+
+    {% formfields %}
+
+    {% next_button %}
+
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Promesas de candidatos presidenciales</h2>
+        <p>
+            Recuerda que cada candidato presidencial había propuesto durante su campaña distribuir el presupuesto de
+            {{ Constants.budget }} de esta manera:
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Candidato \ Votante</th> <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+            </tr>
+            <tr>
+                <th>Político A</th> <td>{{ group.promesa_a1 }}</td> <td>{{ group.promesa_a2 }}</td> <td>{{ group.promesa_a3 }}</td>
+            </tr>
+            <tr>
+                <th>Político B</th> <td>{{ group.promesa_b1 }}</td> <td>{{ group.promesa_b2 }}</td> <td>{{ group.promesa_b3 }}</td>
+            </tr>
+            <tr>
+                <th>Político C</th> <td>{{ group.promesa_c1 }}</td> <td>{{ group.promesa_c2 }}</td> <td>{{ group.promesa_c3 }}</td>
+            </tr>
+        </table>
+    </body>
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

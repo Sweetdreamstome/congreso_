@@ -1,0 +1,23 @@
+{% load otree %}
+
+<div class="card bg-light m-3">
+
+    <div class="card-body">
+        <h3>
+            Este texto solo lo puedes ver tú:
+        </h3>
+
+        <p>
+            A lo largo de este juego, a ti te tocó ser el <b>{{ player.role }}</b>. Recuerda que tu pago será el mismo que el del votante
+            de tu mismo tipo.
+        </p>
+
+        <p>
+            Recuerda que <b>el voto del Votante tipo A vale por {{ Constants.voter1multip }} votos; el tipo B vale por {{ Constants.voter2multip }}; el tipo C vale por {{ Constants.voter3multip }}</b>.
+            Tu objetivo es ganar esos votos para salir electo presidente y/o tener una buena representación en el Congreso.
+            Si ganas la presidencia, propondrás cómo asignar el presupuesto de {{ Constants.budget }}.
+            Si consigues representación en el Congreso, votarás por aceptar/rechazar la propuesta del presidente.
+            Si es rechazada, el Congreso decidirá la asignación final.
+        </p>
+    </div>
+</div>

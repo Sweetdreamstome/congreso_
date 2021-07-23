@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    <p>
+
+        {% if player.id_in_group == 1 %}
+            Decidiste quedarte con <strong>{{ group.kept }}</strong> puntos para ti mismo.
+        {% else %}
+            El Participante A decidió quedarse con <strong>{{ group.kept }}</strong> puntos, por lo que
+            tú recibiste <strong>{{ offer }}</strong> puntos.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+{% endblock %}

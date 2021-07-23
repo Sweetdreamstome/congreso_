@@ -1,0 +1,248 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{{ if Constants.runoff == False }}
+    {% block title %}Resultados de la votación de primera vuelta{% endblock %}
+{{ endif }}
+{{ if Constants.runoff == True }}
+    {% block title %}Resultados de la votación{% endblock %}
+{{ endif }}
+
+
+{% block content %}
+{% include Constants.mapa_eleccion %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        {{ if Constants.runoff == False }}
+            <h2>PRESIDENTE ganador: {{ group.primero }} {{ if player.ganador == True }} (TÚ){{ endif }}</h2>
+            <p>
+                El {{ group.primero }} se lleva {{ Constants.egorent }} de premio.
+                El detalle de la votación PRESIDENCIAL fue así:
+            </p>
+        {{ endif }}
+        {{ if Constants.runoff == True }}
+            {{ if group.habra_segunda == False }}
+                <h2>PRESIDENTE electo en primera vuelta: {{ group.primero }}{{ if player.ganador == True }}(TÚ){{ endif }}</h2>
+                <p>
+                    El {{ group.primero }} obtuvo más de la mitad de los votos y se lleva {{ Constants.egorent }} de premio.
+                    El detalle de la votación PRESIDENCIAL fue así:
+                </p>
+            {{ endif }}
+            {{ if group.habra_segunda == True }}
+                <h2>HABRÁ SEGUNDA VUELTA PRESIDENCIAL entre el {{ group.primero }} y el {{ group.segundo }}</h2>
+                <p>
+                    Ningún político obtuvo más de la mitad de los votos y habrá segunda vuelta presidencial.
+                    El detalle de la votación PRESIDENCIAL fue así:
+                </p>
+            {{ endif }}
+        {{ endif }}
+
+        <table style="width:100%">
+            <tr>
+                <th>Votante</th> <th>Votos</th> <th>Por quién votó para PRESIDENTE</th>
+            </tr>
+            <tr>
+                <th>Votante A</th> <td>{{ Constants.voter1multip }}</td> <td>{{ group.voto1_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante B</th> <td>{{ Constants.voter2multip }}</td> <td>{{ group.voto2_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante C</th> <td>{{ Constants.voter3multip }}</td> <td>{{ group.voto3_str }}</td>
+            </tr>
+        </table>
+    </body>
+
+    {{ if player.congresal == True }}
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Votos para el CONGRESO</h2>
+        <p>
+            En el Congreso, el Partido A tendrá {{ group.votos_a_cong }} votos, el Partido B tendrá {{ group.votos_b_cong }} votos 
+            y el Partido C tendrá {{ group.votos_c_cong }} votos. Esto sucede pues los votantes votaron así:
+        </p>
+        <table style="width:100%">
+            <tr>
+                <th>Votante</th> <th>Votos</th> <th>Por quién votó para el CONGRESO</th>
+            </tr>
+            <tr>
+                <th>Votante A</th> <td>{{ Constants.voter1multip }}</td> <td>{{ group.voto1_cong_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante B</th> <td>{{ Constants.voter2multip }}</td> <td>{{ group.voto2_cong_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante C</th> <td>{{ Constants.voter3multip }}</td> <td>{{ group.voto3_cong_str }}</td>
+            </tr>
+        </table>
+    </body>
+
+    <p>
+        Entonces, la composición del Congreso es la siguiente:
+    </p>
+
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Composición del Congreso</h2>
+        <p>Te recordamos la cantidad de votos que tiene cada partido en este Congreso:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido A</th> <th>Partido B</th> <th>Partido C</th>
+            </tr>
+            <tr>
+                <td>{{ group.votos_a_cong }}</td> <td>{{ group.votos_b_cong }}</td> <td>{{ group.votos_c_cong }}</td>
+            </tr>
+        </table>
+    </body>
+    {{ endif }}
+
+    {{ if group.habra_segunda == False }}
+        {{ if player.congresal == True }}
+            <p>
+                A continuación, el {{ group.primero }} (presidente) propondrá cómo distribuir el dinero.
+                Luego, el Congreso votará por aceptar o rechazar la propuesta.
+                Si la rechazan, el {{ group.primero }} perderá {{ Constants.castigo }} monedas y el Congreso decidirá la asignación del presupuesto.
+            </p>
+
+            {{ if player.role != group.primero and player.id_in_group > 3 }}
+                <p>
+                    Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero }} haya hecho su propuesta.
+                </p>
+            {{ endif }}
+
+            {{ if player.id_in_group <= 3 }}
+                <p>
+                    Por favor, presiona Next. Llegarás a la siguiente página cuando el presupuesto haya sido asignado por los políticos.
+                </p>
+            {{ endif }}
+
+            {{ if player.role == group.primero }}
+                <p>
+                    Por favor, presiona Next para hacer tu asignación como presidente.
+                </p>
+            {{ endif }}
+        {{ endif }}
+        {{ if player.congresal == False }}
+            <p>
+                A continuación, el {{ group.primero }} (presidente) distribuirá el dinero.
+            </p>
+            {{ if player.role != group.primero }}
+                <p>
+                    Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero }} haya distribuido el dinero.
+                </p>
+            {{ endif }}
+            {{ if player.role == group.primero }}
+                <p>
+                    Por favor, presiona Next para hacer tu asignación como presidente.
+                </p>
+            {{ endif }}
+        {{ endif }}
+    {{ endif }}
+
+    {{ if group.habra_segunda == True }}
+        {{ if player.id_in_group > 3 }}
+            <p>
+                Por favor, presiona Next. Los votantes votarán por la segunda vuelta presidencial.
+                Llegarás a la siguiente página cuando hayan votado.
+            </p>
+        {{ endif }}
+        {{ if player.id_in_group <= 3 }}
+            <p>
+                Ahora, te toca votar por las opciones de segunda vuelta presidencial.
+            </p>
+            <p>
+                El ganador de la primera vuelta fue el {{ group.primero }} con {{ group.votos_primero }}.
+            </p>
+            <p>
+                El segundo puesto de la primera vuelta fue el {{ group.segundo }} con {{ group.votos_segundo }}.
+            </p>
+            <p>
+                Si quieres recordar sus promesas antes de votar, mira abajo de la página.
+            </p>
+            <p>
+                Tras votar, presiona Next. Llegarás a la siguiente página cuando todos los votantes hayan emitido sus votos.
+            </p>
+        {{ endif }}
+    {{ endif }}
+
+    {% formfields %}
+    
+
+    {% next_button %}
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+        <head><style>
+            table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            }
+            th, td {
+            padding: 5px;
+            text-align: center;
+            }
+            th {
+            text-align: center;
+            }
+        </style></head><body>
+            <h2>Te recordamos sus promesas</h2>
+            <p>Cada político propuso distribuir el presupuesto de {{ Constants.budget }} entre los votantes así:</p>
+            <table style="width:100%">
+                <tr>
+                    <th>Candidato \ Votante</th> <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+                </tr>
+                <tr>
+                    <th>Político A</th> <td>{{ group.promesa_a1 }}</td> <td>{{ group.promesa_a2 }}</td> <td>{{ group.promesa_a3 }}</td>
+                </tr>
+                <tr>
+                    <th>Político B</th> <td>{{ group.promesa_b1 }}</td> <td>{{ group.promesa_b2 }}</td> <td>{{ group.promesa_b3 }}</td>
+                </tr>
+                <tr>
+                    <th>Político C</th> <td>{{ group.promesa_c1 }}</td> <td>{{ group.promesa_c2 }}</td> <td>{{ group.promesa_c3 }}</td>
+                </tr>
+            </table>
+        </body>
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

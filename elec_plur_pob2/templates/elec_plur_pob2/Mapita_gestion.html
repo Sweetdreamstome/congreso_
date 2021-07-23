@@ -1,0 +1,8 @@
+{% load otree %}
+{% load staticfiles otree %}
+
+{{ if subsession.round_number == 1 }}<img height="30%" width="70%" src="{% static "12.png"%}"/>{{ endif }}
+{{ if subsession.round_number == 2 }}<img height="30%" width="70%" src="{% static "22.png"%}"/>{{ endif }}
+{{ if subsession.round_number == 3 }}<img height="30%" width="70%" src="{% static "32.png"%}"/>{{ endif }}
+{{ if subsession.round_number == 4 }}<img height="30%" width="70%" src="{% static "42.png"%}"/>{{ endif }}
+{{ if subsession.round_number == 5 }}<img height="30%" width="70%" src="{% static "52.png"%}"/>{{ endif }}

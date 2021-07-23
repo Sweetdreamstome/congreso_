@@ -1,0 +1,97 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}Votación{% endblock %}
+
+{% block content %}
+{% include Constants.mapa_eleccion %}
+
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Promesas de candidatos presidenciales</h2>
+        <p>Cada político ha propuesto distribuir el presupuesto de {{ Constants.budget }} entre los votantes así:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Candidato \ Votante</th> <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+            </tr>
+            <tr>
+                <th>Político A</th> <td>{{ group.promesa_a1 }}</td> <td>{{ group.promesa_a2 }}</td> <td>{{ group.promesa_a3 }}</td>
+            </tr>
+            <tr>
+                <th>Político B</th> <td>{{ group.promesa_b1 }}</td> <td>{{ group.promesa_b2 }}</td> <td>{{ group.promesa_b3 }}</td>
+            </tr>
+            <tr>
+                <th>Político C</th> <td>{{ group.promesa_c1 }}</td> <td>{{ group.promesa_c2 }}</td> <td>{{ group.promesa_c3 }}</td>
+            </tr>
+        </table>
+    </body>
+
+    {{ if player.congresal == True }}
+    <head><style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: center;
+        }
+        th {
+          text-align: center;
+        }
+    </style></head><body>
+        <h2>Promesas de candidatos al Congreso</h2>
+        <p>Cada partido ha propuesto aceptar propuestas del presidente que tengan al menos estas cantidades para cada votante:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Candidato \ Votante</th> <th>Votante tipo A</th> <th>Votante tipo B</th> <th>Votante tipo C</th>
+            </tr>
+            <tr>
+                <th>Partido A</th> <td>{{ group.promesa_a1c }}</td> <td>{{ group.promesa_a2c }}</td> <td>{{ group.promesa_a3c }}</td>
+            </tr>
+            <tr>
+                <th>Partido B</th> <td>{{ group.promesa_b1c }}</td> <td>{{ group.promesa_b2c }}</td> <td>{{ group.promesa_b3c }}</td>
+            </tr>
+            <tr>
+                <th>Partido C</th> <td>{{ group.promesa_c1c }}</td> <td>{{ group.promesa_c2c }}</td> <td>{{ group.promesa_c3c }}</td>
+            </tr>
+        </table>
+    </body>
+    {{ endif }}
+
+    <p>
+        A continuación, los votantes votarán.
+    </p>
+
+    {{ if player.id_in_group <= 3 }}
+        {% formfields %}
+    {{ endif }}
+
+    <p>
+        Ahora, presiona Next. Llegarás a la siguiente página cuando todos los votantes hayan emitido sus votos.
+    </p>
+
+    {% next_button %}
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Tu decisión
+{% endblock %}
+
+{% block content %}
+<p>
+    Eres el Participante B.
+    El Participante A te envió {{group.sent_amount}} puntos y recibiste {{tripled_amount}} puntos.
+    Ahora tienes {{tripled_amount}} puntos.
+    Cuánto le enviarás al Participante A?
+</p>
+
+    {% formfields %}
+    <p>{% next_button %}</p>
+    {% include Constants.instructions_template %}
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Resultados
+{% endblock %}
+
+{% block content %}
+    <p>
+        {% if player.id_in_group == 1 and group.decision == 1 %}
+            Decidiste quedarte <strong>{{ group.kept }}</strong>  puntos para ti mismo.
+            El Participante B aceptó tu ofrecimiento, por lo que te quedas con <strong>{{ group.kept }}</strong> puntos.
+        {% elif player.id_in_group == 2 and group.decision == 1 %}
+            El Participante A decidió quearse con <strong>{{ group.kept }}</strong> puntos, por lo que
+            se te ofreció <strong>{{ offer }}</strong> puntos.
+            Decidiste aceptar su ofrecimiento, por lo que recibes <strong>{{ offer }}</strong> puntos.
+        {% elif player.id_in_group == 1 and group.decision == 2 %}
+            Decidiste quedarte con <strong>{{ group.kept }}</strong> puntos para ti mismo.
+            El Participante B rechazo tu ofrecimiento, por lo que te quedas con <strong>0</strong> puntos.
+        {% elif player.id_in_group == 2 and group.decision == 2 %}
+            El Participante A decidió quedarse con <strong>{{ group.kept }}</strong> puntos, por lo que
+            se te ofreció <strong>{{ offer }}</strong> puntos.
+            Rechazaste su ofrecimiento, por lo que recibes <strong>0</strong> puntos.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+
+{% endblock %}
