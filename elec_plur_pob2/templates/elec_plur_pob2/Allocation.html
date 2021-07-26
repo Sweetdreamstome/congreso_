@@ -6,7 +6,7 @@
 
 {% block content %}
 {% include Constants.mapa_gestion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
     <p>
         ¡Felicitaciones, ganaste las elecciones presidenciales! Ahora, te toca elegir cómo distribuir el presupuesto de {{ Constants.budget }}.
         {{ if player.congresal == True }}Luego, el Congreso votará por aceptarla o rechazarla. Si la rechazan, perderás {{ Constants.castigo }}.{{ endif }}

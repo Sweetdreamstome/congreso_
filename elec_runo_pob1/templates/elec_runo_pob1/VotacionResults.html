@@ -12,7 +12,7 @@
 
 {% block content %}
 {% include Constants.mapa_eleccion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
     <head><style>
         table, th, td {
         border: 1px solid black;
@@ -186,10 +186,10 @@
                 Ahora, te toca votar por las opciones de segunda vuelta presidencial.
             </p>
             <p>
-                El ganador de la primera vuelta fue el {{ group.primero }} con {{ group.votos_primero }}.
+                El <b>primer puesto de la primera vuelta</b> fue el <b>{{ group.primero }}</b> con {{ group.votos_primero }}.
             </p>
             <p>
-                El segundo puesto de la primera vuelta fue el {{ group.segundo }} con {{ group.votos_segundo }}.
+                El <b>segundo puesto de la primera vuelta</b> fue el <b>{{ group.segundo }}</b> con {{ group.votos_segundo }}.
             </p>
             <p>
                 Si quieres recordar sus promesas antes de votar, mira abajo de la página.
