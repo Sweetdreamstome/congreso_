@@ -14,10 +14,10 @@
 
         <p>
             Recuerda que <b>el voto del Votante tipo A vale por {{ Constants.voter1multip }} votos; el tipo B vale por {{ Constants.voter2multip }}; el tipo C vale por {{ Constants.voter3multip }}</b>.
-            Tu objetivo es ganar esos votos para salir electo presidente y/o tener una buena representación en el Congreso.
+            Tu objetivo es ganar esos votos para salir electo presidente{{ if participant.congresal == True }} y/o tener una buena representación en el Congreso{{ endif }}.
             Si ganas la presidencia, propondrás cómo asignar el presupuesto de {{ Constants.budget }}.
-            Si consigues representación en el Congreso, votarás por aceptar/rechazar la propuesta del presidente.
-            Si es rechazada, el Congreso decidirá la asignación final.
+            {{ if participant.congresal == True }}Si consigues representación en el Congreso, votarás por aceptar/rechazar la propuesta del presidente.
+            Si es rechazada, el Congreso decidirá la asignación final.{{ endif }}
         </p>
     </div>
 </div>

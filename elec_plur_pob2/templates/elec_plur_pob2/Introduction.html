@@ -4,7 +4,7 @@
 {% block title %}Instrucciones{% endblock %}
 
 {% block content %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.</b></p>
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
 
 {{ if player.round_number > 1 }}
     <p>

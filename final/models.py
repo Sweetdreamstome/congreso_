@@ -67,7 +67,7 @@ class Player(BasePlayer):
             [4, 'No sé']
         ],
         widget=widgets.RadioSelect,
-        label="¿Crees que sin Congreso (solo presidente) se lograrían mejores resultados?"
+        label="En este juego de elecciones, ¿crees que sin Congreso (solo presidente que decida la distribución del presupuesto) se lograrían mejores resultados?"
     )
     cong_add = models.IntegerField(
         choices=[
@@ -76,7 +76,7 @@ class Player(BasePlayer):
             [2, 'No sé']
         ],
         widget=widgets.RadioSelect,
-        label="¿Crees que con la aparición de un Congreso se lograrían mejores resultados?"
+        label="En este juego de elecciones, ¿crees que con la aparición de un Congreso compuesto por varios partidos y que pueda modificar las propuestas del presidente se lograrían mejores resultados?"
     )
 
     #Las que son para el piloto
