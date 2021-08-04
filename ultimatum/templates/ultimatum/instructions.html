@@ -3,13 +3,14 @@
 <div class="card bg-light m-3">
 <div class="card-body">
     <h3>
-        Instrucciones: Minijuego 3
+        Instrucciones: Tarea corta 3
     </h3>
 
     <p>
         En este minijuego, se te emparejará aleatoria y anónimamente con otro participante.
         Uno de ustedes será el Participante A y el otro el Participante B.
-        Antes de tomar alguna decisión, conocerán cuál es su rol.
+        {{ if player.id_in_group == 2 }} Tú eres el <b>Participante B</b>. {{ endif }}
+        {{ if player.id_in_group == 1 }} Tú eres el <b>Participante A</b>. {{ endif }}
     </p>
     <p>
         Existen {{ Constants.endowment }} puntos para dividirse. El Participante A decidirá

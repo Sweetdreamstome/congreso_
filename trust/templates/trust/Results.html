@@ -9,7 +9,7 @@
 
     {% if player.id_in_group == 1 %}
         <p>
-            Escogiste enviarle el Participante B {{ group.sent_amount }} puntos.
+            Escogiste enviarle al Participante B {{ group.sent_amount }} puntos.
             El Participante B te devolvió {{ group.sent_back_amount }} puntos.
         </p>
         <p>
@@ -31,7 +31,7 @@
             Entonces, ahora tienes:
             ({{ tripled_amount }})-({{ group.sent_back_amount }})=<strong>{{ player.payoff }}</strong>
         </p>
-        .
+        
     {% endif %}
 
     <p>{% next_button %}</p>

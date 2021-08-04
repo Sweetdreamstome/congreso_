@@ -22,7 +22,7 @@ class Constants(BaseConstants):
     players_per_group = 6
     num_rounds = 1 #tbd
 
-    contact_template = "elec_plur_pob1/Contactenos.html"
+    contact_template = "final/Contactenos.html"
 class Subsession(BaseSubsession):
     pass
 
@@ -43,6 +43,14 @@ class Player(BasePlayer):
     pago_final_final_experimento = models.CurrencyField()
 
     #Encuesta final
+    sexo = models.IntegerField(
+        choices=[
+            [0, 'Femenino'],
+            [1, 'Masculino']
+        ],
+        widget=widgets.RadioSelect,
+        label="¿Cuál es tu sexo?"
+    )
     runo_like = models.IntegerField(
         choices=[
             [0, 'Sin segunda vuelta'],
@@ -100,3 +108,12 @@ class Player(BasePlayer):
     )
     sugerencias = models.LongStringField(
         label="¿Qué sugerencias nos darías para mejorar el experimento? Tu respuesta aquí es MUY valiosa para nosotros.")
+    
+    sexo = models.IntegerField(
+        choices=[
+            [0, 'Femenino'],
+            [1, 'Masculino']
+        ],
+        widget=widgets.RadioSelect,
+        label="¿Cuál es tu sexo?"
+    )

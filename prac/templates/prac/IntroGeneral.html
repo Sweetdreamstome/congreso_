@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}¡Iniciamos!{% endblock %}
+
+{% block content %}
+
+<p>
+    A continuación jugarás una ronda de práctica. Esta no tiene repercusión sobre tu pago final. En esta ronda, tú serás el <b>{{ player.role }}</b>.
+</p>
+
+    {% next_button %}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+    {% include Constants.desplegable %}
+{% endblock %}

@@ -10,38 +10,61 @@ class Encuesta(Page):
 
     def get_form_fields(self): #Dependerá de si es con Congreso o no
         if self.session.config['congreso']==True:
-            return ['runo_like', 'runo_fair', 'cong_away','muylargo','instrucciones','sugerencias']
+            #return ['runo_like', 'runo_fair', 'cong_away','muylargo','instrucciones','sugerencias']
+            return ['runo_like', 'runo_fair', 'cong_away', 'sexo']
         else:
-            return ['runo_like', 'runo_fair', 'cong_add','muylargo','instrucciones','sugerencias']
+            #return ['runo_like', 'runo_fair', 'cong_add','muylargo','instrucciones','sugerencias']
+            return ['runo_like', 'runo_fair', 'cong_add', 'sexo']
 
     def before_next_page(self):
+        if self.session.config['poblacion']==1:
+            if self.session.config['primera_regla']=='plur':
+                self.participant.vars['rol_demo1']=self.participant.vars['rol_plur_pob1']
+                self.participant.vars['rol_demo2']=self.participant.vars['rol_runo_pob1']
+                self.participant.vars['puntos_demo1']=self.participant.vars['total_payoff_plur_pob1']
+                self.participant.vars['puntos_demo2']=self.participant.vars['total_payoff_runo_pob1']
+            else:
+                self.participant.vars['rol_demo1']=self.participant.vars['rol_runo_pob1']
+                self.participant.vars['rol_demo2']=self.participant.vars['rol_plur_pob1']
+                self.participant.vars['puntos_demo1']=self.participant.vars['total_payoff_runo_pob1']
+                self.participant.vars['puntos_demo2']=self.participant.vars['total_payoff_plur_pob1']
+        else:
+            if self.session.config['primera_regla']=='plur':
+                self.participant.vars['rol_demo1']=self.participant.vars['rol_plur_pob2']
+                self.participant.vars['rol_demo2']=self.participant.vars['rol_runo_pob2']
+                self.participant.vars['puntos_demo1']=self.participant.vars['total_payoff_plur_pob2']
+                self.participant.vars['puntos_demo2']=self.participant.vars['total_payoff_runo_pob2']
+            else:
+                self.participant.vars['rol_demo1']=self.participant.vars['rol_runo_pob2']
+                self.participant.vars['rol_demo2']=self.participant.vars['rol_plur_pob2']
+                self.participant.vars['puntos_demo1']=self.participant.vars['total_payoff_runo_pob2']
+                self.participant.vars['puntos_demo2']=self.participant.vars['total_payoff_plur_pob2']
+
         app = random.randint(1,2)
         if app==1:
-            self.participant.vars['paid_in']='Primer juego'
-            self.participant.vars['pago_final_final']=self.participant.vars['total_payoff_plur_pob1']/4
+            self.participant.vars['paid_in']='Primeras 5'
+            self.participant.vars['pago_final_final']=self.participant.vars['puntos_demo1']/4
         else:
-            self.participant.vars['paid_in']='Segundo juego'
-            self.participant.vars['pago_final_final']=self.participant.vars['total_payoff_runo_pob1']/4
+            self.participant.vars['paid_in']='Últimas 5'
+            self.participant.vars['pago_final_final']=self.participant.vars['puntos_demo2']/4
+
 
         self.player.paid_in = self.player.participant.vars['paid_in']
         self.player.pago_final_final = self.player.participant.vars['pago_final_final']
 
-        jueguito = random.randint(1,5)
+        jueguito = random.randint(1,4)
         if jueguito==1:
-            self.participant.vars['paid_in_jueguito']='Primer minijuego'
+            self.participant.vars['paid_in_jueguito']='Tarea corta 1'
             self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_dictator']/50
         elif jueguito==2:
-            self.participant.vars['paid_in_jueguito']='Segundo minijuego'
+            self.participant.vars['paid_in_jueguito']='Tarea corta 2'
             self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_trust']/50
         elif jueguito==3:
-            self.participant.vars['paid_in_jueguito']='Tercer minijuego'
+            self.participant.vars['paid_in_jueguito']='Tarea corta 3'
             self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_ultimatum']/50
-        elif jueguito==4:
-            self.participant.vars['paid_in_jueguito']='Cuarto minijuego'
-            self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_lying']/10
         else:
-            self.participant.vars['paid_in_jueguito']='Quinto minijuego'
-            self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_measure']/50
+            self.participant.vars['paid_in_jueguito']='Tarea corta 4'
+            self.participant.vars['pago_final_de_jueguitos']=self.participant.vars['payoff_points_lying']/10
 
         self.player.paid_in_jueguito = self.player.participant.vars['paid_in_jueguito']
         self.player.pago_final_de_jueguitos = self.player.participant.vars['pago_final_de_jueguitos']
@@ -61,7 +84,6 @@ class Pago_final(Page):
             trust_pago=self.participant.vars['payoff_points_trust'],
             ultimatum_pago=self.participant.vars['payoff_points_ultimatum'],
             lying_pago=self.participant.vars['payoff_points_lying'],
-            measure_pago=self.participant.vars['payoff_points_measure'],
         )
 
 

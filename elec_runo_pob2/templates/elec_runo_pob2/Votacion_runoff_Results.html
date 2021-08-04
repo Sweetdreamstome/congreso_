@@ -6,8 +6,8 @@
 
 
 {% block content %}
-{% include Constants.mapa_eleccion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+{% include Constants.mapa_juego %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
     <head><style>
         table, th, td {
         border: 1px solid black;
@@ -43,6 +43,7 @@
         </table>
     </body>
     
+    {{ if player.congresal == True }}
     <head><style>
         table, th, td {
         border: 1px solid black;
@@ -67,29 +68,47 @@
             </tr>
         </table>
     </body>
+    {{ endif }}
 
+    {{ if player.congresal == True }}
         <p>
-            A continuación, el {{ group.primero }} (presidente) propondrá cómo distribuir el dinero.
+            A continuación, el {{ group.primero_2da }} (presidente) propondrá cómo distribuir el dinero.
             Luego, el Congreso votará por aceptar o rechazar la propuesta.
-            Si la rechazan, el {{ group.primero }} perderá {{ Constants.castigo }} monedas y el Congreso decidirá la asignación del presupuesto.
+            Si la rechazan, el {{ group.primero_2da }} perderá {{ Constants.castigo }} monedas y el Congreso decidirá la asignación del presupuesto.
         </p>
 
-    {{ if player.role != group.primero_2da and player.id_in_group > 3 }}
-        <p>
-            Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero_2da }} haya hecho su propuesta.
-        </p>
+        {{ if player.role != group.primero_2da and player.id_in_group > 3 }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero_2da }} haya hecho su propuesta.
+            </p>
+        {{ endif }}
+
+        {{ if player.id_in_group <= 3 }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el presupuesto haya sido asignado por los políticos.
+            </p>
+        {{ endif }}
+
+        {{ if player.role == group.primero_2da }}
+            <p>
+                Por favor, presiona Next para hacer tu asignación como presidente.
+            </p>
+        {{ endif }}
     {{ endif }}
-
-    {{ if player.id_in_group <= 3 }}
+    {{ if player.congresal == False }}
         <p>
-            Por favor, presiona Next. Llegarás a la siguiente página cuando el presupuesto haya sido asignado por los políticos.
+            A continuación, el {{ group.primero_2da }} (presidente) distribuirá el dinero.
         </p>
-    {{ endif }}
-
-    {{ if player.role == group.primero_2da }}
-        <p>
-            Por favor, presiona Next para hacer tu asignación como presidente.
-        </p>
+        {{ if player.role != group.primero_2da }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero_2da }} haya distribuido el dinero.
+            </p>
+        {{ endif }}
+        {{ if player.role == group.primero_2da }}
+            <p>
+                Por favor, presiona Next para hacer tu asignación como presidente.
+            </p>
+        {{ endif }}
     {{ endif }}
     
 
@@ -105,4 +124,5 @@
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

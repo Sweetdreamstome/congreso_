@@ -1,0 +1,127 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{% block title %}Resultados de la votación de segunda vuelta{% endblock %}
+
+
+{% block content %}
+<p><b>Ronda única de práctica. Tú eres: {{ player.role }}</b></p>
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>PRESIDENTE ganador: {{ group.primero_2da }}{{ if player.ganador == True }} (TÚ){{ endif }}</h2>
+        <p>
+            El {{ group.primero_2da }} se lleva {{ Constants.egorent }} de premio.
+            El detalle de la votación presidencial de segunda vuelta fue así:
+        </p>
+
+        <table style="width:100%">
+            <tr>
+                <th>Votante</th> <th>Votos</th> <th>Por quién votó en esta segunda vuelta</th>
+            </tr>
+            <tr>
+                <th>Votante A</th> <td>{{ player.voter1multip }}</td> <td>{{ group.voto1_2da_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante B</th> <td>{{ player.voter2multip }}</td> <td>{{ group.voto2_2da_str }}</td>
+            </tr>
+            <tr>
+                <th>Votante C</th> <td>{{ player.voter3multip }}</td> <td>{{ group.voto3_2da_str }}</td>
+            </tr>
+        </table>
+    </body>
+    
+    {{ if player.congresal == True }}
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Composición del Congreso</h2>
+        <p>Te recordamos la cantidad de votos que tiene cada partido en este Congreso:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido A</th> <th>Partido B</th> <th>Partido C</th>
+            </tr>
+            <tr>
+                <td>{{ group.votos_a_cong }}</td> <td>{{ group.votos_b_cong }}</td> <td>{{ group.votos_c_cong }}</td>
+            </tr>
+        </table>
+    </body>
+    {{ endif }}
+
+    {{ if player.congresal == True }}
+        <p>
+            A continuación, el {{ group.primero_2da }} (presidente) propondrá cómo distribuir el dinero.
+            Luego, el Congreso votará por aceptar o rechazar la propuesta.
+            Si la rechazan, el {{ group.primero_2da }} perderá {{ Constants.castigo }} monedas y el Congreso decidirá la asignación del presupuesto.
+        </p>
+
+        {{ if player.role != group.primero_2da and player.id_in_group > 3 }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero_2da }} haya hecho su propuesta.
+            </p>
+        {{ endif }}
+
+        {{ if player.id_in_group <= 3 }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el presupuesto haya sido asignado por los políticos.
+            </p>
+        {{ endif }}
+
+        {{ if player.role == group.primero_2da }}
+            <p>
+                Por favor, presiona Next para hacer tu asignación como presidente.
+            </p>
+        {{ endif }}
+    {{ endif }}
+    {{ if player.congresal == False }}
+        <p>
+            A continuación, el {{ group.primero_2da }} (presidente) distribuirá el dinero.
+        </p>
+        {{ if player.role != group.primero_2da }}
+            <p>
+                Por favor, presiona Next. Llegarás a la siguiente página cuando el {{ group.primero_2da }} haya distribuido el dinero.
+            </p>
+        {{ endif }}
+        {{ if player.role == group.primero_2da }}
+            <p>
+                Por favor, presiona Next para hacer tu asignación como presidente.
+            </p>
+        {{ endif }}
+    {{ endif }}
+    
+
+    {% next_button %}
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+    {% include Constants.desplegable %}
+{% endblock %}

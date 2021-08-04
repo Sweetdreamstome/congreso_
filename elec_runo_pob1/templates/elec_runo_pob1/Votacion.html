@@ -3,9 +3,9 @@
 {% block title %}Votación{% endblock %}
 
 {% block content %}
-{% include Constants.mapa_eleccion %}
+{% include Constants.mapa_juego %}
 
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
     <head><style>
         table, th, td {
         border: 1px solid black;
@@ -94,4 +94,5 @@
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

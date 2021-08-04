@@ -1,0 +1,16 @@
+{% load otree %}
+
+<div class="card bg-light m-3">
+
+    <div class="card-body">
+        <h3>
+            Este texto solo lo puedes ver tú:
+        </h3>
+
+        <p>
+            En esta ronda de práctica, a ti te tocó ser el <b>{{ player.role }}</b>.
+            Recuerda que <b>el voto del Votante tipo A vale por {{ player.voter1multip }} votos; el tipo B vale por {{ player.voter2multip }}; el tipo C vale por {{ player.voter3multip }}</b>.
+            También, recuerda que cada político recibe un pago igual al dinero que le asigne al votante de su tipo.
+        </p>
+    </div>
+</div>

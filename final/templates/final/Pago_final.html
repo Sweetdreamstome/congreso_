@@ -25,21 +25,21 @@ Pago final
         </p>
         <table style="width:100%">
             <tr>
-                <th>Juego</th> <th>Tu rol</th> <th>Tus puntos</th>
+                <th>Rondas</th> <th>Tu rol</th> <th>Tus puntos</th>
             </tr>
             <tr>
-                <td>Primero</td> <td>{{ participant.rol_plur_pob1 }}</td> <td>{{ participant.total_payoff_plur_pob1 }}</td>
+                <td>Primeras 5</td> <td>{{ participant.rol_demo1 }}</td> <td>{{ participant.puntos_demo1 }}</td>
             </tr>
             <tr>
-                <td>Segundo</td> <td>{{ participant.rol_runo_pob1 }}</td> <td>{{ participant.total_payoff_runo_pob1 }}</td>
+                <td>Últimas 5</td> <td>{{ participant.rol_demo2 }}</td> <td>{{ participant.puntos_demo2 }}</td>
             </tr>
         </table>
     </body>
 
     <p>
-        Aleatoriamente, se eligió que se te pagará por el <b>{{ participant.paid_in }}</b>.
+        Aleatoriamente, la computadora eligió que se te pagará por las <b>{{ participant.paid_in }}</b> rondas.
         Por lo tanto, tu pago final convertido en soles es, como dijimos al inicio,
-        un cuarto de eso: <b>{{ participant.pago_final_final }}</b>.
+        un cuarto de ese puntaje: <b>{{ participant.pago_final_final }}</b>.
     </p>
 
     <head><style>
@@ -55,35 +55,32 @@ Pago final
         text-align: center;
         }
     </style></head><body>
-        <h2>Puntos adicionales por minijuegos</h2>
+        <h2>Puntos adicionales por tareas cortas</h2>
         <p>
-            Tus puntos en los minijuegos son los siguientes:
+            Tus puntos en las tareas cortas son los siguientes:
         </p>
         <table style="width:100%">
             <tr>
-                <th>Minijuego</th> <th>Tus puntos</th>
+                <th>Tarea corta</th> <th>Tus puntos</th>
             </tr>
             <tr>
-                <td>Primer minijuego</td>  <td>{{ dictator_pago }}</td>
+                <td>Primera tarea</td>  <td>{{ dictator_pago }}</td>
             </tr>
             <tr>
-                <td>Segundo minijuego</td> <td>{{ trust_pago }}</td>
+                <td>Segunda tarea</td> <td>{{ trust_pago }}</td>
             </tr>
             <tr>
-                <td>Tercer minijuego</td>  <td>{{ ultimatum_pago }}</td>
+                <td>Tercera tarea</td>  <td>{{ ultimatum_pago }}</td>
             </tr>
             <tr>
-                <td>Cuarto minijuego</td>  <td>{{ lying_pago }}</td>
-            </tr>
-            <tr>
-                <td>Quinto minijuego</td>  <td>{{ measure_pago }}</td>
+                <td>Cuarta tarea</td>  <td>{{ lying_pago }}</td>
             </tr>
         </table>
     </body>
 
     <p>
-        Aleatoriamente, se eligió que se te pagará por el <b>{{ player.paid_in_jueguito }}</b>.
-        Por lo tanto, tu pago adicional por minijuegos convertido en soles es <b>{{ player.pago_final_de_jueguitos }}</b>.
+        Aleatoriamente, la computadora eligió que se te pagará por la <b>{{ player.paid_in_jueguito }}</b>.
+        Por lo tanto, tu pago adicional por tareas cortas convertido en soles es <b>{{ player.pago_final_de_jueguitos }}</b>.
     </p>
 
     <p>

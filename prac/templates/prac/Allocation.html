@@ -1,0 +1,58 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+
+{% block title %}Distribución del presupuesto{% endblock %}
+
+{% block content %}
+<p><b>Ronda única de práctica. Tú eres: {{ player.role }}</b></p>
+    <p>
+        ¡Felicitaciones, ganaste las elecciones presidenciales! Ahora, te toca elegir cómo distribuir el presupuesto de {{ Constants.budget }}.
+        {{ if player.congresal == True }}Luego, el Congreso votará por aceptarla o rechazarla. Si la rechazan, perderás {{ Constants.castigo }}.{{ endif }}
+    </p>
+
+
+
+    {{if player.congresal == True }}
+    <head><style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 5px;
+        text-align: center;
+        }
+        th {
+        text-align: center;
+        }
+    </style></head><body>
+        <h2>Composición del Congreso</h2>
+        <p>Te recordamos la cantidad de votos que tiene cada partido en este Congreso:</p>
+        <table style="width:100%">
+            <tr>
+                <th>Partido A</th> <th>Partido B</th> <th>Partido C</th>
+            </tr>
+            <tr>
+                <td>{{ group.votos_a_cong }}</td> <td>{{ group.votos_b_cong }}</td> <td>{{ group.votos_c_cong }}</td>
+            </tr>
+        </table>
+    </body>
+    {{ endif }}
+    
+    {% formfields %}
+
+    {% next_button %}
+
+    {{ if player.id_in_group <= 3 }}
+        {% include Constants.instructions_template_voter %}
+    {{ endif }}
+
+    {{ if player.id_in_group > 3 }}
+        {% include Constants.instructions_template_politician %}
+    {{ endif }}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+    {% include Constants.desplegable %}
+{% endblock %}

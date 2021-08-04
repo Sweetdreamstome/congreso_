@@ -1,161 +1,22 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 
-{% block title %}Instrucciones{% endblock %}
+{% block title %}{% endblock %}
 
-{% block content %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+{% block content %}   
+{% include Constants.mapa_juego %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
 
-{{ if player.round_number > 1 }}
-    <p>
-        Importante: Los jugadores en esta ronda son los mismos que aquellos en la ronda anterior, con los mismos roles.
-        Por ejemplo, quien fue el Político B, seguirá siendo Político B. Quien fue Votante tipo A, seguirá siendo Votante tipo A.
-        Las instrucciones que leerás a continuación son las mismas que las de la ronda anterior.
-    </p>
-{{ endif }}
-
-{{ if participant.congresal == True }}
-    <p>
-        Este es un juego de elecciones presidenciales y congresales con {{ Constants.players_per_group }} jugadores.
-        Tenemos 3 votantes y 3 políticos. Los políticos son partidos políticos, que presentarán candidatos presidenciales y representantes de su partido en el Congreso.
-        Un votante es tipo A, otro es tipo B, otro es tipo C. Los partidos políticos también tienen tipos: uno es A, otro es B y otro es C.
-    </p>
-        
-    <p>     
-        Primero, los votantes deben escoger a uno de los tres candidatos presidenciales para que se vuelva presidente. A la vez, deben votar por 
-        uno de los tres representantes para que se vuelvan congresistas y obtengan asientos en el Congreso. Un partido puede ganar la presidencia y 
-        también tener representantes en el Congreso.
-    </p>    
-
-    <p>             
-        Una vez elegidos, el presidente y el Congreso 
-        negociarán acerca de cómo repartir un presupuesto (dinero) de {{ Constants.budget }} monedas entre los votantes. En esta negociación, el presidente le hará
-        primero una propuesta al Congreso sobre cómo repartir el presupuesto. Luego, el Congreso debe votar si aceptar o rechazar 
-        la propuesta. El presidente cuenta automáticamente con los votos a favor de los congresistas de su mismo tipo (de haberlos). Para aceptar o rechazar, el Congreso necesita que la mitad más uno de los congresistas vote por esa opción. 
-        Si el Congreso acepta, se procede con la propuesta del presidente y el dinero se distribuye así. Si la rechaza, el Congreso escogerá cómo repartir el 
-        presupuesto. Para hacerlo, cada partido con asientos hará una propuesta de cómo repartir el presupuesto. La decisión 
-        tomada por el Congreso en conjunto será el promedio de las propuestas de cada partido, ponderadas por el número de asientos de cada uno.
-
-    </p>
-    
-    <p>
-        <b> Acciones de los participantes</b>  
-    </p>
-
-    <p>
-        Al comienzo de las elecciones, cada candidato presidencial deberá hacer campaña y dirá cuánto del presupuesto de {{ Constants.budget }} 
-        propone darle a cada votante si sale electo presidente.
-        Esta es una promesa de campaña; no necesariamente la debe cumplir si sale electo.
-        Además, cada candidato al Congreso dirá lo mínimo que espera que proponga el presidente para cada tipo de votante, tal que su partido
-        en el Congreso vote por aceptar esa propuesta del presidente.
-        Esta también es una promesa de campaña, no necesariamente la debe cumplir su partido en el Congreso.
-    </p>
-    
-    <p>
-        Luego, los votantes elegirán a un presidente y a un Congreso. El voto es obligatorio y se debe votar por un candidato presidencial y una lista al Congreso (no existe voto en blanco o nulo). Se permite el voto cruzado, o sea que un votante elija al candidato presidencial tipo A y a la lista al Congreso tipo B.
-        <b>El voto del Votante tipo A vale por {{ Constants.voter1multip }} votos. El del Votante tipo B vale por {{ Constants.voter2multip }} y el del Votante tipo C vale por {{ Constants.voter3multip }}</b>.
-        Es decir, en total, hay {{ Constants.voter_total }} votos en juego.
-        Para el Congreso, cada partido tendrá tanta representación (asientos en el Congreso) como votos obtenga. Por ejemplo, si un partido recibe 45 votos, tendrá 45 asientos.
-        A más asientos tenga un partido, mayor peso tendrán sus decisiones individuales en las del Congreso como conjunto. Existe un total de {{ Constants.voter_total }} asientos en el Congreso.
-    </p>
-
-    <p>
-        Finalmente, el presidente y el Congreso repartirán el presupuesto (dinero) entre los votantes según lo explicado al inicio.
-    </p>
-{{ endif }}
-
-{{ if participant.congresal == False }}
-    <p>
-        Este es un juego de elecciones presidenciales con {{ Constants.players_per_group }} jugadores.
-        Tenemos 3 votantes y 3 políticos. Los políticos serán candidatos presidenciales.
-        Un votante es tipo A, otro es tipo B, otro es tipo C. Los políticos también tienen tipos: uno es A, otro es B y otro es C.
-    </p>
-
-    <p>
-        Primero, los votantes deben escoger a un político para que se vuelva presidente. Luego, este presidente deberá repartir un presupuesto (dinero) de {{ Constants.budget }} monedas entre los votantes.
-    </p>
-   
-    <p>
-        <b> Acciones de los participantes</b>  
-    </p>
-
-    <p>
-        Al comienzo de las elecciones, cada político deberá hacer campaña y dirá cuánto del presupuesto de {{ Constants.budget }} propone darle a cada votante si sale electo presidente.
-        Esta es una promesa de campaña; no necesariamente la debe cumplir si sale electo.
-    </p>
-    
-    <p>
-        Luego, los votantes deben elegir al presidente, por lo que cada uno debe votar por algún político. <b>El voto del Votante tipo A vale por {{ Constants.voter1multip }} votos. El del Votante tipo B vale por {{ Constants.voter2multip }} y el del Votante tipo C vale por {{ Constants.voter3multip }}</b>.
-        Es decir, en total, hay {{ Constants.voter_total }} votos en juego.
-    </p>
-
-    <p>
-        Finalmente, el político ganador de la elección se volverá presidente y repartirá el presupuesto (dinero) entre los votantes.
-    </p>
-{{ endif }}
-
-    {{ if Constants.runoff == False }}
-    <p>
-        En este juego, <b>el presidente es el candidato que más votos obtenga</b>, sin importar si llega o no a la mitad de los votos.
-    </p>
-    {{ endif }}
-    {{ if Constants.runoff == True }}
-    <p>
-        En este juego, <b>podría haber segunda vuelta para elegir al presidente.</b>
-        Si en primera vuelta ningún candidato presidencial pasa la mitad de los votos, habrá una segunda vuelta.
-    </p>
-    {{ endif }}
-    
-    <p>
-         <b> Pagos de los participantes</b>  
-    </p>
-
-    <p>
-        Luego de que el presupuesto se reparte, los votantes de cada tipo cuentan cuántas monedas de dinero recibió cada uno. 
-        El pago de un votante en esta ronda será la raíz cuadrada del número de monedas que obtenga. Por ejemplo, si recibió 49 monedas en esta ronda, su pago será 7.
-    </p>
-
-    <p>
-        Los pagos de los políticos dependen de los pagos de los votantes. En particular, el pago que recibe un político es igual al recibido por el
-         votante de su mismo tipo. Por ejemplo, si el resultado del juego es que el Votante A gana 7, el Votante B gana 5 y el Votante C gana 4,
-        entonces el Político A ganará 7; el Político B, 5; y el político C, 4. Esto puede interpretarse como que un político valora el bienestar del
-         votante de su mismo tipo, por lo que le conviene otorgarle dinero.
-    </p>
-         
-    <p>
-        Por último, el candidato que ganó la presidencia, recibirá {{ Constants.egorent }} más de pago como premio por ganar la elección{{ if participant.congresal == True }}, pero podrá perder {{ Constants.castigo }} como castigo si el Congreso rechaza su propuesta de presupuesto{{ endif }}.
-
-    </p>
-
-    <p>
-        <b> Tu pago</b>  
-   </p>
-
-    <p>
-        Tu pago de este juego será el total acumulado de las {{ Constants.num_rounds }} rondas de este juego.
-        Al final, tu pago será elegido aleatoriamente
-        entre los pagos finales de cada juego jugado. Se convertirá a soles según lo especificado anteriormente.
-    </p>
-
-    <p>
-        Esta es la ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}.
-    </p>
-
-    <p>
-        Por favor, presiona Next. Si eres político, te tocará dar tus promesas de campaña.
-        Si eres votante, te tocará esperar a que los políticos emitan sus promesas.
-    </p>
-
-{{ if player.id_in_group <= 3 }}
-    {% include Constants.instructions_template_voter %}
-{{ endif }}
-
-{{ if player.id_in_group > 3 }}
-    {% include Constants.instructions_template_politician %}
-{{ endif }}
-
+<p>
+    Presiona Next para empezar una nueva ronda.
+</p>
+<p>
+    Si eres político, te tocará dar tus promesas de campaña.
+    Si eres votante, te tocará esperar a que los políticos emitan sus promesas.
+</p>
     {% next_button %}
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

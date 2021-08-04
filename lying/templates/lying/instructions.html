@@ -4,17 +4,19 @@
     <div class="card-body">
 
     <h3>
-        Instrucciones: Minijuego 4
+        Instrucciones: Tarea corta 4
     </h3>
     <p>
         En este minijuego, se te asignará el rol de Participante A o Participante B.
+        {{ if player.id_in_group == 2 }} Tú eres el <b>Participante B</b>. {{ endif }}
+        {{ if player.id_in_group == 1 }} Tú eres el <b>Participante A</b>. {{ endif }}
         La computadora escogerá aleatoriamente un número entero entre el 1 y el 6, que valdrá para los participantes A y B.
-        Al Participante A conoce el número escogido para ambos y le enviará un mensaje
+        El Participante A conoce el número escogido para ambos y le enviará un mensaje
         sobre ese número al Participante B. El Participante B no conoce el número
         asignado a ambos y debe decidir si cree o no el mensaje del Participante A.
     </p>
     <p>
-        Acciones del Participante A:
+        <b> Acciones del Participante A:</b>
     </p>
     <p>
         Para cada número posible, el Participante A debe formular un mensaje al Participante B 
@@ -23,7 +25,7 @@
         "El número asignado fue 5", como también puede decir "El número asignado fue 2". 
     </p>
     <p>
-        Acciones del Participante B:
+        <b> Acciones del Participante B:</b>
     </p>
     <p>
         Antes de recibir el mensaje, el Participante B debe decidir si creerá o no en el mensaje que le envíe el Participante A, para cada mensaje posible.
@@ -32,7 +34,7 @@
         Por último, se elegirá el número del juego aleatoriamente y se ejecutarán las acciones de los participantes que corresponden a ese número.
     </p>
     <p>
-        Pagos:
+        <b>  Pagos:</b>
     </p>
     <p>
         El Participante A recibe 10 puntos más el doble del valor del número enviado como mensaje. Por ejemplo, si el 

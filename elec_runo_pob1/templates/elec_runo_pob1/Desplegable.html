@@ -1,0 +1,72 @@
+{% load otree %}
+{% load staticfiles otree %}
+
+<br /> {# line break #}
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#expand").hide();
+    $("#expand-instructions").click(function() {
+        if ($("#expand").is(":visible")) {
+            $("#expand").hide("fast");
+            return;
+        }
+        $("#expand").show("fast");
+    });
+});
+</script>
+<style>
+    #expand{
+        padding-top: 10px;
+    }
+</style>
+
+
+<br/>
+<br/>
+
+<button id="expand-instructions" class="btn " type="button" style="border-color: DimGray; color:DimGray"> Recordar las instrucciones </button>
+
+<div id="expand" class="instructions well well-lg"> {# paper effect starts #}
+
+{{ if participant.congresal == False }}
+<p><b>Instrucciones generales</b></p>
+<p>
+Este es un juego de elecciones presidenciales, donde el objetivo de todos los jugadores es conseguir la mayor cantidad de puntos posibles. 
+</p>
+<p>
+Existen 6 jugadores. Tú eres uno de ellos y los otros 5 son otras personas con las que estás interactuando en simultáneo.
+ 3 jugadores son votantes y 3 jugadores son políticos. Los políticos son los candidatos presidenciales. 
+ Un votante es tipo A, otro es tipo B, otro es tipo C. Los políticos también tienen tipos: uno es A, otro es B y otro es C.
+</p>
+<p>
+Existe un presupuesto de 100 que el político que gane la presidencia tendrá que repartir completamente entre los votantes.
+ Mientras más presupuesto reciba un votante, más puntos obtendrá. 
+ Al principio de la ronda, los políticos harán campaña para tratar de ganar el apoyo de los votantes. 
+ Luego, los votantes deben escoger a uno de los tres políticos para que se vuelva presidente. 
+ Finalmente, el presidente deberá repartir el presupuesto de 100 entre los votantes y termina la ronda.
+</p>
+{{ endif }}
+
+{{ if participant.congresal == True }}
+<p><b>Instrucciones generales</b></p>
+<p>
+Este es un juego de elecciones presidenciales y congresales, donde el objetivo de todos los jugadores es conseguir la mayor cantidad de puntos posibles. 
+</p>
+<p>
+Existen 6 jugadores. Tú eres uno de ellos y los otros 5 son otras personas con las que estás interactuando en simultáneo.
+ 3 jugadores son votantes y 3 jugadores son políticos. Los políticos son los candidatos presidenciales y representantes del partido para el Congreso. 
+ Un votante es tipo A, otro es tipo B, otro es tipo C. Los políticos también tienen tipos: uno es A, otro es B y otro es C.
+</p>
+<p>
+Existe un presupuesto de 100 que el gobierno (presidente + congresistas) tendrá que repartir completamente entre los votantes.
+ Mientras más presupuesto reciba un votante, más puntos obtendrá. 
+ Al principio de la ronda, los políticos harán campaña presidencial y congresal para tratar de ganar el apoyo de los votantes. 
+ Luego, los votantes deben escoger a uno de los tres políticos para que se vuelva presidente y votar por su partido preferido para el Congreso. 
+ Luego, el presidente propone cuánto de esos 100 repartir a cada votante. El Congreso vota por aceptar o rechazar esa propuesta.
+ Si la propuesta es aceptada (por mayoría simple), así se repartirá el presupuesto. Si es rechazada, cada partido en el Congreso propone cómo hacer la repartición
+ y la repartición final será el promedio de sus propuestas, ponderadas por el número de asientos de cada partido en el Congreso.
+</p>
+{{ endif }}
+
+</div>   {#  paper effect ends#}

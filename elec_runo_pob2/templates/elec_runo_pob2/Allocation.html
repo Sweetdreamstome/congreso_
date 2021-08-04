@@ -5,48 +5,14 @@
 {% block title %}Distribución del presupuesto{% endblock %}
 
 {% block content %}
-{% include Constants.mapa_gestion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+{% include Constants.mapa_juego %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
     <p>
         ¡Felicitaciones, ganaste las elecciones presidenciales! Ahora, te toca elegir cómo distribuir el presupuesto de {{ Constants.budget }}.
         {{ if player.congresal == True }}Luego, el Congreso votará por aceptarla o rechazarla. Si la rechazan, perderás {{ Constants.castigo }}.{{ endif }}
     </p>
 
-    {{ if group.habra_segunda == True }}
-        <head><style>
-            table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            }
-            th, td {
-            padding: 5px;
-            text-align: center;
-            }
-            th {
-            text-align: center;
-            }
-        </style></head><body>
-            <h2>Resultados de segunda vuelta</h2>
-            <p>
-                Te recordamos cómo votó la gente en esta segunda vuelta.
-            </p>
 
-            <table style="width:100%">
-                <tr>
-                    <th>Votante</th> <th>Votos</th> <th>Por quién votó en esta segunda vuelta</th>
-                </tr>
-                <tr>
-                    <th>Votante A</th> <td>{{ Constants.voter1multip }}</td> <td>{{ group.voto1_2da_str }}</td>
-                </tr>
-                <tr>
-                    <th>Votante B</th> <td>{{ Constants.voter2multip }}</td> <td>{{ group.voto2_2da_str }}</td>
-                </tr>
-                <tr>
-                    <th>Votante C</th> <td>{{ Constants.voter3multip }}</td> <td>{{ group.voto3_2da_str }}</td>
-                </tr>
-            </table>
-        </body>
-    {{ endif }}
 
     {{if player.congresal == True }}
     <head><style>
@@ -89,4 +55,5 @@
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

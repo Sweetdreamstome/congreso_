@@ -2,34 +2,115 @@ from os import environ
 
 SESSION_CONFIGS = [
      dict(
-        name='presidencial',
-        display_name="presidencial",
+        name='presidencial_plur_pob1',
+        display_name="presidencial_plur_pob1",
         num_demo_participants=6,
-        app_sequence=['inicial',
+        app_sequence=['inicial','prac',
         'elec_plur_pob1','elec_runo_pob1',
-        #'elec_plur_pob2','elec_runo_pob2',
-        'inicial_jueguitos','dictator','trust','ultimatum','lying','measure_task',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
         'final'
         ],
         congreso=False,
-            ),
+        primera_regla="plur",
+        poblacion=1,
+        ),
      dict(
-        name='congresal',
-        display_name="congresal",
+        name='presidencial_plur_pob2',
+        display_name="presidencial_plur_pob2",
         num_demo_participants=6,
-        app_sequence=['inicial',
+        app_sequence=['inicial','prac',
+        'elec_plur_pob2','elec_runo_pob2',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=False,
+        primera_regla="plur",
+        poblacion=2,
+        ),
+     dict(
+        name='presidencial_runo_pob1',
+        display_name="presidencial_runo_pob1",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
         'elec_runo_pob1','elec_plur_pob1',
-        #'elec_plur_pob2','elec_runo_pob2',
-        'inicial_jueguitos','dictator','trust','ultimatum','lying','measure_task',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=False,
+        primera_regla="runo",
+        poblacion=1,
+        ),
+     dict(
+        name='presidencial_runo_pob2',
+        display_name="presidencial_runo_pob2",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
+        'elec_runo_pob2','elec_plur_pob2',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=False,
+        primera_regla="runo",
+        poblacion=2,
+        ),
+     dict(
+        name='congresal_plur_pob1',
+        display_name="congresal_plur_pob1",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
+        'elec_plur_pob1','elec_runo_pob1',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
         'final'
         ],
         congreso=True,
+        primera_regla="plur",
+        poblacion=1,
+        ),
+     dict(
+        name='congresal_plur_pob2',
+        display_name="congresal_plur_pob2",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
+        'elec_plur_pob2','elec_runo_pob2',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=True,
+        primera_regla="plur",
+        poblacion=2,
+        ),
+     dict(
+        name='congresal_runo_pob1',
+        display_name="congresal_runo_pob1",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
+        'elec_runo_pob1','elec_plur_pob1',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=True,
+        primera_regla="runo",
+        poblacion=1,
+        ),
+     dict(
+        name='congresal_runo_pob2',
+        display_name="congresal_runo_pob2",
+        num_demo_participants=6,
+        app_sequence=['inicial','prac',
+        'elec_runo_pob2','elec_plur_pob2',
+        'inicial_jueguitos','dictator','trust','ultimatum','lying',
+        'final'
+        ],
+        congreso=True,
+        primera_regla="runo",
+        poblacion=2,
         )
 ]
 
 #En cada sesión, hay que cambiar:
 #App sequence en settings
 #App 'final': tabla en Pago_final.html y aleatorización en pages
+#App de practica: ponerle el runoff y pob correcto
 
 #En cada app hay que cambiar:
 #Direcciones de los templates en Constants
@@ -45,10 +126,10 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1, participation_fee=0, doc=""
 )
 
-PARTICIPANT_FIELDS = ['congresal',
+PARTICIPANT_FIELDS = ['congresal','primera_regla','poblacion',
     'total_payoff_plur_pob1','total_payoff_plur_pob2','total_payoff_runo_pob1','total_payoff_runo_pob2',
     'rol_plur_pob1','rol_plur_pob2','rol_runo_pob1','rol_runo_pob2',
-    'paid_in',
+    'paid_in','rol_demo1','rol_demo2','puntos_demo1','puntos_demo2',
     'pago_final_final']
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

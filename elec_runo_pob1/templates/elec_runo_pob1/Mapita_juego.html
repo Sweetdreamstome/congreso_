@@ -1,0 +1,36 @@
+{% load otree %}
+{% load staticfiles otree %}
+
+{{ if participant.primera_regla == 'plur' }}
+    {{ if Constants.runoff == False }}
+        {{ if subsession.round_number == 1 }}<img width="100%" src="{% static "plur1.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 2 }}<img width="100%" src="{% static "plur2.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 3 }}<img width="100%" src="{% static "plur3.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 4 }}<img width="100%" src="{% static "plur4.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 5 }}<img width="100%" src="{% static "plur5.png"%}"/>{{ endif }}
+    {{ endif }}
+    {{ if Constants.runoff == True }}
+        {{ if subsession.round_number == 1 }}<img width="100%" src="{% static "plur6.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 2 }}<img width="100%" src="{% static "plur7.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 3 }}<img width="100%" src="{% static "plur8.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 4 }}<img width="100%" src="{% static "plur9.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 5 }}<img width="100%" src="{% static "plur10.png"%}"/>{{ endif }}
+    {{ endif }}
+{{ endif }}
+
+{{ if participant.primera_regla == 'runo' }}
+    {{ if Constants.runoff == True }}
+        {{ if subsession.round_number == 1 }}<img width="100%" src="{% static "runo1.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 2 }}<img width="100%" src="{% static "runo2.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 3 }}<img width="100%" src="{% static "runo3.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 4 }}<img width="100%" src="{% static "runo4.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 5 }}<img width="100%" src="{% static "runo5.png"%}"/>{{ endif }}
+    {{ endif }}
+    {{ if Constants.runoff == False }}
+        {{ if subsession.round_number == 1 }}<img width="100%" src="{% static "runo6.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 2 }}<img width="100%" src="{% static "runo7.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 3 }}<img width="100%" src="{% static "runo8.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 4 }}<img width="100%" src="{% static "runo9.png"%}"/>{{ endif }}
+        {{ if subsession.round_number == 5 }}<img width="100%" src="{% static "runo10.png"%}"/>{{ endif }}
+    {{ endif }}
+{{ endif }}

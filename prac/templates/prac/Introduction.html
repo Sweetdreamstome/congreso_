@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}{% endblock %}
+
+{% block content %}    
+<p>
+    Por favor, presiona Next. Si eres político, te tocará dar tus promesas de campaña.
+    Si eres votante, te tocará esperar a que los políticos emitan sus promesas.
+</p>
+    {% next_button %}
+    <p>
+        {% include Constants.contact_template %}
+    </p>
+    {% include Constants.desplegable %}
+{% endblock %}

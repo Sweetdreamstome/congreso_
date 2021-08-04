@@ -1,18 +1,74 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 
-{% block title %}Juego de elecciones y distribución del presupuesto{% endblock %}
+{% block title %}¡Cambio!{% endblock %}
 
 {% block content %}
 
-    <p>
-        A continuación, jugarás un juego {{ Constants.num_rounds }} veces. Tendrás el mismo rol en todas las rondas.
-        Lee con atención las instrucciones. Si ya has jugado otro juego antes de este, notarás que
-        varía la forma en la que se elige al presidente.
-    </p>
+{{ if participant.primera_regla == "runo" and Constants.runoff == True }}
+<p>
+    A continuación jugarás {{ Constants.num_rounds }} rondas con las mismas reglas de la ronda de práctica.
+</p>
+<p>
+    El único cambio es que para las siguientes {{ Constants.num_rounds }} rondas, tú serás el <b>{{ player.role }}</b>.
+    Los otros 5 participantes también podrán tener un nuevo rol, el cual mantendrán por las siguientes 
+    {{ Constants.num_rounds }} rondas.
+</p>
+{{ endif }}
+
+{{ if participant.primera_regla == "plur" and Constants.runoff == False }}
+<p>
+    A continuación jugarás {{ Constants.num_rounds }} rondas con las mismas reglas de la ronda de práctica.
+</p>
+<p>
+    El único cambio es que para las siguientes {{ Constants.num_rounds }} rondas, tú serás el <b>{{ player.role }}</b>.
+    Los otros 5 participantes también podrán tener un nuevo rol, el cual mantendrán por las siguientes 
+    {{ Constants.num_rounds }} rondas.
+</p>
+{{ endif }}
+
+{{ if participant.primera_regla == "runo" and Constants.runoff == False }}
+<p>
+    A continuación jugarás {{ Constants.num_rounds }} rondas con las mismas reglas generales de las rondas anteriores.
+    Solo habrá 2 cambios:
+</p>
+<p>
+    Primero: En estas {{ Constants.num_rounds }} rondas, <b>ya no habrá segunda vuelta presidencial</b>.
+    El presidente electo será el que más votos obtenga, sin importar si consiguió o no más de la mitad de los votos.
+</p>
+<p>
+    Segundo: Para las siguientes {{ Constants.num_rounds }} rondas, tú serás el <b>{{ player.role }}</b>.
+    Los otros 5 participantes también podrán tener un nuevo rol, el cual mantendrán por las siguientes 
+    {{ Constants.num_rounds }} rondas.
+</p>
+{{ endif }}
+
+{{ if participant.primera_regla == "plur" and Constants.runoff == True }}
+<p>
+    A continuación jugarás {{ Constants.num_rounds }} rondas con las mismas reglas generales de las rondas anteriores.
+    Solo habrá 2 cambios:
+</p>
+<p>
+    Primero: En las siguientes {{ Constants.num_rounds }} rondas, podría haber <b>segunda vuelta presidencial</b>. 
+    Si en la primera vuelta ningún candidato presidencial obtiene más de la mitad de los votos, 
+    los dos candidatos con más votos pasarán a una segunda vuelta. En ella, los votantes votarán nuevamente, 
+    pero ahora solo entre dos candidatos. Los políticos no podrán hacer nuevas promesas en la segunda vuelta.
+</p>
+<p>
+    Segundo: Para las siguientes {{ Constants.num_rounds }} rondas, tú serás el <b>{{ player.role }}</b>.
+    Los otros 5 participantes también podrán tener un nuevo rol, el cual mantendrán por las siguientes 
+    {{ Constants.num_rounds }} rondas.
+</p>
+{{ endif }}
+
+
+
+
+    
 
     {% next_button %}
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

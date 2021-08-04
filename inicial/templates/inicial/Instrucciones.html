@@ -1,0 +1,128 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}Instrucciones del juego{% endblock %}
+
+{% block content %}
+
+{{ if participant.congresal == False }}
+<p><b>Instrucciones generales</b></p>
+
+<p>
+Este es un juego de elecciones presidenciales, donde el objetivo de todos los jugadores es conseguir la mayor cantidad de puntos posibles.
+</p>
+<p>
+Hay 6 jugadores. Tú eres uno de ellos y los otros 5 son otras personas con las que estarás interactuando en simultáneo. 3 jugadores son votantes y 3 jugadores son políticos. Los políticos serán los candidatos presidenciales. De los 3 votantes, uno es tipo A, otro es tipo B y otro es tipo C. Los políticos también tienen tipos: uno es A, otro es B y otro es C. A cada uno de los 6 jugadores, se le asignará uno de esos 6 roles. Te enterarás cuál será tu rol más adelante.
+</p>
+<p>
+Una ronda funciona así: Existe un presupuesto de 100 unidades presupuestales que el político que gane la presidencia tendrá que repartir completamente entre los votantes. Mientras más presupuesto reciba un votante, más puntos obtendrá. 
+Cada ronda tiene la siguiente secuencia:
+</p>
+
+<ol>
+  <li> Los políticos harán campaña para tratar de ganar el apoyo de los votantes. </li>
+  <li> Los votantes deben escoger a uno de los tres políticos para que se vuelva presidente. </li>
+  <li> El presidente deberá repartir el presupuesto de 100 entre los votantes y termina la ronda. </li>
+</ol>
+ 
+<p><b>¿Cómo obtener puntos? </b></p>
+<p>
+<b>Votantes:</b> Tu puntaje de la ronda es la raíz cuadrada del presupuesto que reciban. Por ejemplo, si un votante recibió 49 unidades presupuestales, recibirá 7 puntos.
+</p>
+<p>
+<b>Políticos:</b> El puntaje del político es el mismo que el del votante <b>de su mismo tipo</b>. Siguiendo con el ejemplo anterior, si el Votante A fue quien ganó esos 7 puntos, entonces el Político A también gana esos 7 puntos. Entonces, a un político le interesa directamente que el votante <b>de su mismo tipo</b> reciba presupuesto, pues esto le dará puntos a él mismo también.
+</p>
+<p>
+Por último, el político que ganó la presidencia recibe un premio adicional de 4 puntos (solo para él, no para el votante de su tipo).
+</p>
+ 
+<p><b>¿Qué acciones concretas toman los jugadores? </b></p>
+<p>
+<b>En la campaña:</b> Al comienzo de las elecciones, cada político comunica cuánto del presupuesto de 100 unidades presupuestales propone darle a cada votante si sale electo presidente. El total ofrecido (Votante A + Votante B + Votante C) debe ser <b>igual</b> a 100. Esta promesa de campaña no necesita ser cumplida necesariamente. Es libre de escoger otra asignación del presupuesto. No perderá puntos por esto.
+</p>
+<p>
+<b>En la elección:</b> Cada votante tiene 3 opciones: votar por el Político A, por el Político B o por el Político C. <b>El voto del Votante tipo A vale por {{ player.voter1multip }} votos. El del Votante tipo B vale por {{ player.voter2multip }} y el del Votante tipo C vale por {{ player.voter3multip }}</b>. Es decir, en total, hay <b>{{ player.voter_total }} votos</b> en juego.
+</p>
+<p>
+{{ if participant.primera_regla == 'plur' }}El presidente será el político que obtenga la mayor cantidad de votos, al margen de si consiguió más de la mitad de los votos o no.{{ endif }}
+{{ if participant.primera_regla == 'runo' }}En este juego podría haber <b>segunda vuelta presidencial</b>. Si en la primera vuelta ningún candidato obtiene más de la mitad de los votos, entonces habrá una segunda vuelta entre los 2 políticos que obtuvieron más votos en la primera vuelta. En esta segunda vuelta no habrá más promesas de campaña.{{ endif }}
+</p>
+<p>
+<b>En la presidencia:</b> El político que ganó la elección será el presidente y repartirá el presupuesto entre los votantes. Debe repartirse todo el presupuesto entre los 3 votantes de cualquier forma con tal que sume exactamente 100.
+</p>
+<p>
+<b>Aviso final:</b> Recuerda que este es un juego donde interactúan 6 personas en simultáneo, por lo que, si una persona se demora mucho, todos los otros 5 participantes tendrán que esperarle para poder seguir avanzando. Por favor, ten esto en cuenta para mantener el juego lo más fluido posible.
+</p>
+<p>
+Ahora, presiona Next para comenzar la ronda de práctica.
+</p>
+{{ endif }}
+
+
+
+
+
+
+{{ if participant.congresal == True }}
+<p><b>Instrucciones generales</b></p>
+<p>
+Este es un juego de elecciones presidenciales y congresales, donde el objetivo de todos los jugadores es conseguir la mayor cantidad de puntos posibles.
+</p>
+<p>
+Hay 6 jugadores. Tú eres uno de ellos y los otros 5 son otras personas con las que estarás interactuando en simultáneo. 3 jugadores son votantes y 3 jugadores son políticos. El político representa a su partido en su totalidad. Como tal, el político hace de candidato presidencial de su partido y también decide por su bancada en el Congreso. De los 3 votantes, uno es tipo A, otro es tipo B y otro es tipo C. Los políticos también tienen tipos: uno es A, otro es B y otro es C. A cada uno de los 6 jugadores, se le asignará uno de esos 6 roles. Te enterarás cuál será tu rol más adelante.
+</p>
+<p>
+Una ronda funciona así: Existe un presupuesto de 100 unidades que los políticos (presidente y congresistas) tendrán que repartir completamente entre los votantes. Mientras más presupuesto reciba un votante, más puntos obtendrá. 
+Una ronda funciona así:
+<ol>
+  <li> Al principio de la ronda, los políticos harán campaña para tratar de ganar el apoyo de los votantes.</li>
+  <li> Luego, los votantes deben escoger a uno de los tres políticos para que se vuelva presidente. A la vez, deben votar por uno de los tres representantes para que se vuelvan congresistas y obtengan asientos en el Congreso. Un partido puede ganar la presidencia y también tener representantes en el Congreso.</li>
+  <li> El presidente y el Congreso negociarán para repartir el presupuesto. 
+    <ol style="list-style-type: lower-alpha;">
+      <li> El presidente propondrá cuánto del presupuesto darle al Votante A, al B y al C. </li>
+      <li> Luego, el Congreso vota por aceptar o rechazar esa propuesta. Cada partido (cada político) vota; su voto vale la cantidad de asientos que tiene en el Congreso. </li>
+    </ol>
+  </li>
+</ol>
+</p>
+
+<p><b>¿Cómo obtener puntos? </b></p>
+<p>
+<b>Votantes:</b> Tu puntaje de la ronda es la raíz cuadrada del presupuesto que reciban. Por ejemplo, si un votante recibió 49 unidades presupuestales, recibirá 7 puntos.
+</p>
+<p>
+<b>Políticos:</b> El puntaje del político es el mismo que el del votante <b>de su mismo tipo</b>. Siguiendo con el ejemplo anterior, si el Votante A fue quien ganó esos 7 puntos, entonces el Político A también gana esos 7 puntos. Entonces, a un político le interesa directamente que el votante <b>de su mismo tipo</b> reciba presupuesto, pues esto le dará puntos a él mismo también.
+</p>
+<p>
+Por último, el político que ganó la presidencia recibe un premio adicional de 4 puntos (solo para él, no para el votante de su tipo). Sin embargo, perderá esos 4 puntos si su propuesta es rechazada por el Congreso, así que le conviene que el Congreso se la acepte.
+</p>
+ 
+ACÁ ME QUEDÉ
+
+<p><b>¿Qué acciones concretas toman los jugadores? </b></p>
+<p>
+<b>En la campaña:</b>Al comienzo de las elecciones, cada político comunica cuánto del presupuesto de 100 unidades presupuestales propone darle a cada votante si sale electo presidente. El total ofrecido (Votante A + Votante B + Votante C) debe ser <b>igual</b> a 100.  El político también hace una promesa de campaña por su partido para el Congreso. Expresará cuánto es lo mínimo que el presidente debería proponer darle a cada votante, para que su partido en el Congreso vote por aceptar. Estas promesas de campaña (para presidente y para Congreso) no necesitan ser cumplidas necesariamente. Es libre de hacer algo diferente a lo prometido si sale electo. No perderá puntos por esto.
+</p>
+<p>
+<b>En la elección:</b> Cada votante tiene 3 opciones para las elecciones presidenciales: votar por el Político A, por el Político B o por el Político C. Además, tiene 3 opciones para las elecciones congresales: votar por el Político A, por el Político B o por el Político C.  <b>El voto del Votante tipo A vale por {{ player.voter1multip }} votos. El del Votante tipo B vale por {{ player.voter2multip }} y el del Votante tipo C vale por {{ player.voter3multip }}</b>. Es decir, en total, hay <b>{{ player.voter_total }} votos</b> en juego para cada elección (presidencial o congresal).
+</p>
+<p>
+{{ if participant.primera_regla == 'plur' }}El presidente será el político que obtenga la mayor cantidad de votos, al margen de si consiguió más de la mitad de los votos o no. Para el Congreso, cada partido tendrá tanta representación (asientos en el Congreso) como votos obtenga. Por ejemplo, si un partido recibe 45 votos, tendrá 45 asientos. A más asientos tenga un partido, mayor peso tendrán sus decisiones individuales en las del Congreso como conjunto. Hay un total de 100 asientos en el Congreso.{{ endif }}
+{{ if participant.primera_regla == 'runo' }}En este juego podría haber <b>segunda vuelta presidencial</b>. Si en la primera vuelta ningún candidato obtiene más de la mitad de los votos en la votación presidencial, entonces habrá una segunda vuelta presidencial entre los 2 políticos que obtuvieron más votos en la primera vuelta. En esta segunda vuelta no habrá más promesas de campaña. Para el Congreso, cada partido tendrá tanta representación (asientos en el Congreso) como votos obtenga. Por ejemplo, si un partido recibe 45 votos, tendrá 45 asientos. A más asientos tenga un partido, mayor peso tendrán sus decisiones individuales en las del Congreso como conjunto. Hay un total de 100 asientos en el Congreso.
+{{ endif }}
+</p>
+<p>
+<b>En la gestión presidencial y congresal:</b> El presidente y el Congreso repartirán el presupuesto entre los votantes. Primero, el presidente propondrá cuánto del presupuesto darle a cada votante. Debe repartirse todo el presupuesto entre los 3 votantes de cualquier forma con tal que sume exactamente 100. Luego, cada partido (cada político) en el Congreso votará por aceptar o rechazar esta propuesta. El político que además es presidente debe votar por aceptar. Si más de la mitad de los votos del Congreso son para aceptar, entonces la distribución propuesta por el presidente es la final. Si la propuesta es rechazada, cada partido elegirá su propia distribución del presupuesto, y la distribución final será el promedio de las propuestas de cada partido, ponderadas por el número de asientos que tiene cada una en el Congreso.
+</p>
+<p>
+<b>Aviso final:</b> Recuerda que este es un juego donde interactúan 6 personas en simultáneo, por lo que, si una persona se demora mucho, todos los otros 5 participantes tendrán que esperarle para poder seguir avanzando. Por favor, ten esto en cuenta para mantener el juego lo más fluido posible.
+</p>
+<p>
+Ahora, presiona Next para comenzar la ronda de práctica.
+</p>
+{{ endif }}
+
+
+
+
+    {% next_button %}
+{% endblock %}

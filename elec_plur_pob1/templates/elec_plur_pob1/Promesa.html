@@ -5,8 +5,8 @@
 {% block title %}Promesa{% endblock %}
 
 {% block content %}
-{% include Constants.mapa_eleccion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+{% include Constants.mapa_juego %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
     <p>
         A continuación, introduce tus promesas de campaña. Con esta información, los votantes decidirán a qué político darle sus votos.
         Nota que estas promesas no son vinculantes. Es decir, si sales electo, luego puedes hacer algo diferente a lo prometido.
@@ -31,4 +31,5 @@
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}

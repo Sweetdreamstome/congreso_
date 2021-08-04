@@ -14,6 +14,8 @@ class Introduction(Page):
     def before_next_page(self):
         #Acá guardo todas las participant.vars en fields, para que salgan en el Excel:
         self.player.congresal=self.player.participant.vars['congresal']
+        self.player.primera_regla=self.player.participant.vars['primera_regla']
+        self.player.poblacion=self.player.participant.vars['poblacion']
 
 #Solo los políticos pasan a las promesas
 class Promesa(Page):
@@ -23,7 +25,7 @@ class Promesa(Page):
     form_model = 'group'
 
     def get_form_fields(self): #A cada político, solo muéstrale su formfield
-        if self.player.congresal == True:
+        if self.player.participant.vars['congresal'] == True:
             if self.player.role == Constants.politiciana_role:
                 return ['promesa_a1', 'promesa_a2', 'promesa_a3','promesa_a1c','promesa_a2c','promesa_a3c']
             elif self.player.role == Constants.politicianb_role:
@@ -39,7 +41,7 @@ class Promesa(Page):
                 return ['promesa_c1', 'promesa_c2', 'promesa_c3']
     
     def error_message(self, values): #Las promesas deben sumar 100
-        if self.player.congresal == True:
+        if self.player.participant.vars['congresal'] == True:
             if self.player.role == Constants.politiciana_role:
                 if values['promesa_a1'] + values['promesa_a2'] + values['promesa_a3'] != Constants.budget and values['promesa_a1c'] + values['promesa_a2c'] + values['promesa_a3c'] <= Constants.budget:
                     return 'Las promesas presidenciales deben sumar el presupuesto.'
@@ -71,7 +73,6 @@ class Promesa(Page):
             else:
                 if values['promesa_c1'] + values['promesa_c2'] + values['promesa_c3'] != Constants.budget:
                     return 'Las promesas presidenciales deben sumar el presupuesto.'
-
 
 #Votantes pasan de frente. También le aparece a los 2 políticos que prometen más rápido
 class PromesaWait(WaitPage):
@@ -207,22 +208,24 @@ class Results(Page):
             else:
                 return ['aprueba_resultado']
 
-
-#Página final (solo en ronda final)
-class Final(Page):
-    def is_displayed(player):
-        return player.round_number == Constants.num_rounds
-
-    def vars_for_template(self):
-        player_in_all_rounds = self.player.in_all_rounds()
-
-        return dict(
-            total_payoff=sum([p.payoff for p in player_in_all_rounds]),
-        )
-
     def before_next_page(self):
         self.player.participant.vars['total_payoff_runo_pob2']=sum([p.payoff for p in self.player.in_all_rounds()])
         self.player.participant.vars['rol_runo_pob2']=self.player.role
+
+
+#Página final (solo en ronda final)
+#class Final(Page):
+    #def is_displayed(player):
+        #return player.round_number == Constants.num_rounds
+
+    #def vars_for_template(self):
+        #player_in_all_rounds = self.player.in_all_rounds()
+
+        #return dict(
+        #    total_payoff=sum([p.payoff for p in player_in_all_rounds]),
+        #)
+
+
 
 
 page_sequence = [IntroGeneral,
@@ -239,4 +242,5 @@ page_sequence = [IntroGeneral,
     Allocation_cong,
     AllocationWait2,
     Results,
-    Final]
+    #Final
+    ]

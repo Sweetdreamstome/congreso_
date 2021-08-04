@@ -56,6 +56,8 @@ class Constants(BaseConstants):
     contact_template = "elec_plur_pob1/Contactenos.html"
     mapa_eleccion = "elec_plur_pob1/Mapita_eleccion.html"
     mapa_gestion = "elec_plur_pob1/Mapita_gestion.html"
+    desplegable = "elec_plur_pob1/Desplegable.html"
+    mapa_juego = "elec_plur_pob1/Mapita_juego.html"
 
 
 #Por acá va la matriz
@@ -67,6 +69,14 @@ class Subsession(BaseSubsession):
                 player.participant.vars['congresal'] = True
             else:
                 player.participant.vars['congresal'] = False
+            if self.session.config['primera_regla']=="plur":
+                player.participant.vars['primera_regla'] = "plur"
+            else:
+                player.participant.vars['primera_regla'] = "runo"
+            if self.session.config['poblacion']==1:
+                player.participant.vars['poblacion'] = 1
+            else:
+                player.participant.vars['poblacion'] = 2
 
 class Group(BaseGroup):
     #Reasignación de roles
@@ -763,6 +773,8 @@ class Player(BasePlayer):
 
     #Participant vars que se guardan al final del experimento
     congresal = models.BooleanField()
+    primera_regla = models.StringField()
+    poblacion = models.IntegerField()
 
     #Crees que el presidente cumplirá su promesa?
     cumplira_promesa = models.IntegerField(

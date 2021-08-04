@@ -5,8 +5,8 @@
 {% block title %}Resultados{% endblock %}
 
 {% block content %}
-{% include Constants.mapa_gestion %}
-<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }}. Tú eres: {{ player.role }}</b></p>
+{% include Constants.mapa_juego %}
+<p><b>Ronda {{ subsession.round_number }} de {{ Constants.num_rounds }} {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta. Tú eres: {{ player.role }}</b></p>
     <head><style>
         table, th, td {
         border: 1px solid black;
@@ -138,7 +138,7 @@
     {{ endif }}
 
     <p>
-        Tu pago en esta ronda es la raíz cuadrada de de lo que se te ha asignado (si eres votante) o lo que se le ha asignado
+        Tu puntaje en esta ronda es la raíz cuadrada de lo que se te ha asignado (si eres votante) o lo que se le ha asignado
         al votante de tu mismo tipo (si eres político), más {{ Constants.egorent }} si eres quien salió electo presidente{{ if player.congresal == True }}, 
         menos {{ Constants.castigo }} si fuiste electo presidente y el Congreso rechazó tu propuesta{{ endif }}.
     </p>
@@ -160,15 +160,16 @@
     {{ endif }}
 
     <p>
-        Por lo tanto, tu pago de esta ronda es {{ player.payoff }}.
+        Por lo tanto, tu puntaje de esta ronda es {{ player.payoff }}.
     </p>
 
     <p>
-        Tu pago acumulado en estas {{ player.round_number}} de {{ Constants.num_rounds }} rondas es {{ total_payoff }}.
+        Tu puntaje acumulado en estas {{ player.round_number}} de {{ Constants.num_rounds }} rondas 
+        {{ if Constants.runoff == True }}con{{ endif }}{{ if Constants.runoff == False }}sin{{ endif }} segunda vuelta es <b>{{ total_payoff }}</b>.
         Ahora, presiona Next. Puedes bajar si quieres recordar lo que el presidente había prometido al inicio de la ronda.
     </p>
 
-    <p>Tu respuesta a continuación no tendrá ninguna consecuencia en tu pago:</p>
+    <p>Tu respuesta a continuación no tendrá ninguna consecuencia en tu puntaje:</p>
 
     {% formfields %}
 
@@ -218,4 +219,5 @@
     <p>
         {% include Constants.contact_template %}
     </p>
+    {% include Constants.desplegable %}
 {% endblock %}
