@@ -81,7 +81,8 @@ class Player(BasePlayer):
         choices=[
             [0, 'No'],
             [1, 'Sí'],
-            [2, 'No sé']
+            [2, 'No sé'],
+            [3, 'Sería igual']
         ],
         widget=widgets.RadioSelect,
         label="En este juego de elecciones, ¿crees que con la aparición de un Congreso compuesto por varios partidos y que pueda modificar las propuestas del presidente se lograrían mejores resultados?"
